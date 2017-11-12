@@ -4,19 +4,13 @@ var socket = io();
 
 socket.on('connect', function(){
 	console.log('Connected to server');
-
-	socket.emit('createMessage', {
-		from: "Noah",
-		text: "This message is from noah"
-	});
-
 });
 
 socket.on('disconnect', function(){
 	console.log('disconnected from server!');
 });
 
-//listener for new email
+//listener for newMessager from server
 socket.on('newMessage', function (message){
 	console.log('newMessage', message);
 });

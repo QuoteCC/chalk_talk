@@ -16,15 +16,15 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
 	console.log("new user connected");
 
-	socket.emit('newMessage', {
-		from: 'noah@newMessage.com',
-		text: 'HI!',
-		createAt: 123
-	});
-
-	//event listener
+	//listening for client's 'createMessage'
 	socket.on('createMessage', (message) => {
-		console.log('createMessage', message);
+		// console.log('createMessage', message);
+		//io emits to every person
+		io.emit('newMessage', {
+			from: message.from,
+			text:message.text,
+			createdAt: new Date().getTime()
+		});
 	});
 
 	socket.on('disconnect', (socket) => {
