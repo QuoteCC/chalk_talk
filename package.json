@@ -1,0 +1,18 @@
+{
+  "name": "chalktalk",
+  "version": "1.0.0",
+  "description": "CSC 212 Final Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "6.11.0"
+  },
+  "author": "Noah Gorstein, Josh Whitehouse, Tarin Rickett, Colin Corliss, Alana Zakroczemski",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
