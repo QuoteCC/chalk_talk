@@ -12,9 +12,9 @@ socket.on('disconnect', function(){
 
 //listener for newMessage from server
 socket.on('newMessage', function (message){
-	console.log('newMessage', message);
+	var formattedTime = moment(message.createdAt).format('h:mm a');
 	var li = $('<li></li>');
-	li.text(`${message.from}: ${message.text}`);
+	li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
 	$('#messages').append(li);
 });
