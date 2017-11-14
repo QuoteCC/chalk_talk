@@ -34,7 +34,7 @@ socket.on('updateUserList', function (users) {
 
 //listener for newMessage from server
 socket.on('newMessage', function (message){
-	var formattedTime = moment(message.createdAt).format('h:mm a');
+	var formattedTime = moment(message.createdAt).format('MMM. Do, YYYY - h:mm a');
 	var li = $('<li></li>');
 	li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
@@ -50,8 +50,6 @@ socket.on('newMessage', function (message){
 
 $('#message-form').on('submit', function(e) {
 	e.preventDefault();
-
-	var nameTextBox = $('[name=name]');
 	var messageTextBox = $('[name=message]');
 
 	socket.emit('createMessage', {
