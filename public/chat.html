@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="/css/styles.css">
+
+	</head>
+
+	<body class = "chat">
+		<div class="chat__sidebar">
+			<h3> Chalk Talk </h3>
+			<div id="users"></div>
+		</div>
+
+		<div class = "chat__main">
+			<ul id="messages"></ul>
+
+			<div class = "chat__footer">
+				<form id="message-form">
+					<input name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
+					<button>Send</button>
+				</form>
+			</div>
+		</div>
+
+		<script src="/socket.io/socket.io.js"></script>
+		<script src='/js/libs/jquery-3.2.1.min.js'></script>
+		<script src="/js/libs/moment.js"></script>
+		<script src="/js/libs/deparam.js"></script>
+		<script src="/js/chat.js"></script>
+	</body>
+
+</html>

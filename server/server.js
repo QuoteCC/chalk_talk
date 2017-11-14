@@ -4,11 +4,14 @@ const express = require('express');
 const socketIO = require('socket.io');
 
 const {generateMessage} = require('./utils/message');
+const {isRealString} = require('./utils/validation');
+const {Users} = require('./utils/users');
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
+var users = new Users();
 
 //configure middleware
 app.use(express.static(publicPath));
@@ -17,15 +20,34 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
 	console.log("new user connected");
 
-	socket.emit('newMessage', generateMessage('Admin', 'Welcome to chalk talk'));
-	
-	socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
+	socket.on('join', (params, callback) => {
+		if (!isRealString(params.name) || !isRealString(params.room)) {
+			return callback('NAME AND ROOM REQUIRED.');
+		}
+
+		//to join chat rooms!!!
+		socket.join(params.room);
+		//socket.leave('name of room')
+		//io.to('room Name').emit --- to send to everyone in room 'to'
+		users.removeUser(socket.id);
+		users.addUser(socket.id, params.name, params.room)
+
+		io.to(params.room).emit('updateUserList', users.getUserList(params.room));
+
+		socket.emit('newMessage', generateMessage('Admin', 'Welcome to chalk talk!'));
+		socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined.`));
+		callback();
+	});
 
 	//listening for client's 'createMessage'
 	socket.on('createMessage', (message, callback) => {
-		console.log('createMessage', message);
-		//io emits to every person
-		io.emit('newMessage', generateMessage(message.from, message.text));
+		var user = users.getUser(socket.id);
+
+		//only send if user exists and not just sending blank lines and spaces
+		if (user && isRealString(message.text)) {
+			//emit to only the room that user is in!!!
+			io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+		}
 		callback('This is from the server!');
 		// broadcast sends to everyone but MYSELF
 		// socket.broadcast.emit('newMessage', {
@@ -35,8 +57,15 @@ io.on('connection', (socket) => {
 		// });
 	});
 
-	socket.on('disconnect', (socket) => {
+	socket.on('disconnect', () => {
 		console.log('user is disconnected');
+		var user = users.removeUser(socket.id);
+
+		//if user was removed
+		if(user) {
+			io.to(user.room).emit('updateUserList', users.getUserList(user.room));
+			io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left.`));
+		}
 	});
 });
 
