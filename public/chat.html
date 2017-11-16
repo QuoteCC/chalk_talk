@@ -3,24 +3,41 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-		<link rel="stylesheet" href="/css/styles.css">
-
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/css/theme.css">
+		<link rel="stylesheet" href="/css/chat.css">
 	</head>
 
-	<body class = "chat">
-		<div class="chat__sidebar">
-			<h3> Chalk Talk </h3>
-			<div id="users"></div>
-		</div>
+	<body class="chat">
 
-		<div class = "chat__main">
-			<ul id="messages"></ul>
-
-			<div class = "chat__footer">
-				<form id="message-form">
-					<input name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
-					<button>Send</button>
-				</form>
+		<div class="container">
+			<div class="row">
+				<div class="col-4">
+					<ul class="nav flex-column">
+						<h1 class="chalktalk">Chalk Talk</h1>
+					  <li class="nav-item">
+					    <a class="nav-link active" href="#">Active</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link" href="#">Link</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link" href="#">Link</a>
+					  </li>
+					</ul>
+				</div>
+				<div id="chat" class="col">
+					<div class="row">
+						<ul id="messages"></ul>
+					</div>
+					<div class="row">
+						<form id="message-form">
+							<input name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
+							<button>Send</button>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -30,5 +47,4 @@
 		<script src="/js/libs/deparam.js"></script>
 		<script src="/js/chat.js"></script>
 	</body>
-
 </html>
