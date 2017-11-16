@@ -1,7 +1,15 @@
+/*-------------------
+    Global Styles
+--------------------*/
+
 .container {
   margin: 0;
   width: 100%;
 }
+
+/*-------------------
+    Nav Styles
+--------------------*/
 
 #logo {
   margin: .25em;
@@ -12,10 +20,14 @@
   margin: 1em;
 }
 
-#chat {
-  background-color: #F2F2F2;
-}
-
 .card li, p {
   color: #4A4A4A;
+}
+
+/*-------------------
+    Chat Styles
+--------------------*/
+
+#chat {
+  background-color: #F2F2F2;
 }
