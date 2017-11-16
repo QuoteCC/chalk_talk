@@ -9,6 +9,13 @@ body {
   background-size: cover;
 }
 
+.viewport-centered {
+  height: 100%;
+}
+.viewport-centered .row {
+  margin: auto;
+}
+
 .chalktalk {
   font-family: 'Chalkduster', sans-serif;
 }
