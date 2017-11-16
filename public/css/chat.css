@@ -7,6 +7,17 @@
   width: 100%;
 }
 
+.truncate {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+p, li, input, button {
+  color: #4A4A4A;
+}
+
 /*-------------------
     Nav Styles
 --------------------*/
@@ -20,13 +31,37 @@
   margin: 1em;
 }
 
-.card li, p {
-  color: #4A4A4A;
+#nav-card-block {
+  padding: 0;
+}
+#nav-card-block button {
+  border: none;
+}
+.btn-group img {
+  width: 2.5em;
 }
 
 /*-------------------
     Chat Styles
 --------------------*/
+
+#message-and-chat {
+  position:absolute;
+  width: 100%;
+  bottom: 0
+}
+
+#message-form {
+  width: 100%
+}
+
+#chat-text-box {
+  width: 80%
+}
+
+#send-button {
+  width: 15%
+}
 
 #chat {
   background-color: #F2F2F2;
