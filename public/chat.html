@@ -13,18 +13,62 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="col-4">
+				<div id="nav" class="col-3">
 					<ul class="nav flex-column">
-						<h1 class="chalktalk">Chalk Talk</h1>
-					  <li class="nav-item">
-					    <a class="nav-link active" href="#">Active</a>
-					  </li>
-					  <li class="nav-item">
-					    <a class="nav-link" href="#">Link</a>
-					  </li>
-					  <li class="nav-item">
-					    <a class="nav-link" href="#">Link</a>
-					  </li>
+						<h1 id="logo" class="chalktalk">Chalk Talk</h1>
+						<div id="accordion" role="tablist" aria-multiselectable="true">
+						  <div class="card">
+						    <div class="card-header" role="tab">
+						      <li class="mb-0">
+						        <a data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion" class="collapsed" aria-expanded="false">BCS229</a>
+						      </li>
+						    </div>
+						    <div id="collapseOne" class="collapse" aria-expanded="false" style="">
+						      <div class="card-block">
+										<p>BCS229 Content</p>
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="card">
+						    <div class="card-header" role="tab">
+						      <li class="mb-0">
+						        <a data-toggle="collapse" data-target="#collapseTwo" data-parent="#accordion" class="collapsed" aria-expanded="false">FR204</a>
+						      </li>
+						    </div>
+						    <div id="collapseTwo" class="collapse" aria-expanded="false" style="">
+						      <div class="card-block">
+						        <p>FR204 Content</p>
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="card">
+						    <div class="card-header" role="tab">
+						      <li class="mb-0">
+						        <a data-toggle="collapse" data-target="#collapseThree" data-parent="#accordion" class="collapsed" aria-expanded="false">CSC174</a>
+						      </li>
+						    </div>
+						    <div id="collapseThree" class="collapse" aria-expanded="false">
+						      <div class="card-block">
+										<p>CSC174 Content</p>
+						      </div>
+						    </div>
+						  </div>
+
+							<div class="card">
+						    <div class="card-header" role="tab">
+						      <li class="mb-0">
+						        <a data-toggle="collapse" data-target="#collapseFour" data-parent="#accordion" aria-expanded="true">CSC212</a>
+						      </li>
+						    </div>
+						    <div id="collapseFour" class="collapse show" aria-expanded="false">
+						      <div class="card-block">
+										<p>CSC212 Content</p>
+						      </div>
+						    </div>
+						  </div>
+						</div>
 					</ul>
 				</div>
 				<div id="chat" class="col">
@@ -43,6 +87,7 @@
 
 		<script src="/socket.io/socket.io.js"></script>
 		<script src='/js/libs/jquery-3.2.1.min.js'></script>
+		<script src='/js/libs/bootstrap.min.js'></script>
 		<script src="/js/libs/moment.js"></script>
 		<script src="/js/libs/deparam.js"></script>
 		<script src="/js/chat.js"></script>
