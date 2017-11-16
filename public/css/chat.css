@@ -1,10 +1,49 @@
+/*-------------------
+    Global Styles
+--------------------*/
+
 .container {
   margin: 0;
   width: 100%;
 }
 
-.nav {
+/*-------------------
+    Nav Styles
+--------------------*/
 
+#logo {
+  margin: .25em;
+  margin-bottom: .75em;
+}
+
+#nav {
+  margin: 1em;
+}
+
+.card li, p {
+  color: #4A4A4A;
+}
+
+/*-------------------
+    Chat Styles
+--------------------*/
+
+#message-and-chat {
+  position:absolute;
+  width: 100%;
+  bottom: 0
+}
+
+#message-form {
+  width: 100%
+}
+
+#chat-text-box {
+  width: 80%
+}
+
+#send-button {
+  width: 15%
 }
 
 #chat {
