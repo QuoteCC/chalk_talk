@@ -46,9 +46,15 @@ p, li, input, button {
 
 #nav-card-block {
   padding: 0;
+  margin: 0;
+  height: 4em;
 }
 #nav-card-block button {
+  background-color: #979797;
   border: none;
+}
+#nav-card-block button:hover {
+  background-color: #F2F2F2;
 }
 .btn-group img {
   width: 2.5em;
