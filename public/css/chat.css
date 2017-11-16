@@ -7,6 +7,17 @@
   width: 100%;
 }
 
+.truncate {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+p, li, input, button {
+  color: #4A4A4A;
+}
+
 /*-------------------
     Nav Styles
 --------------------*/
@@ -18,10 +29,6 @@
 
 #nav {
   margin: 1em;
-}
-
-.card li, p {
-  color: #4A4A4A;
 }
 
 /*-------------------
