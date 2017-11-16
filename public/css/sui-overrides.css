@@ -1,0 +1,14 @@
+body, html {
+  height: 100%;
+}
+
+body {
+  background-image: url("../images/chalkboard-background.jpg");
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+.chalktalk {
+  font-family: 'Chalkduster', sans-serif;
+}
