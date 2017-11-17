@@ -2,6 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
+const bodyParser = require('body-parser')
 
 const {generateMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validation');
@@ -15,6 +16,10 @@ var users = new Users();
 
 //configure middleware
 app.use(express.static(publicPath));
+app.use(bodyParser.urlencoded({extended: true}))
+
+
+
 
 //lets you listen to new connection and do something
 io.on('connection', (socket) => {
@@ -68,6 +73,8 @@ io.on('connection', (socket) => {
 		}
 	});
 });
+
+
 
 //using http instead of app
 server.listen(port, () => {
