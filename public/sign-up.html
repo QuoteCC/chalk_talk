@@ -20,8 +20,11 @@
 				  <div id="register" class="card-body">
 						<form action="/chat.html"> <!-- where do you want this to post to? -->
 							<div class="form-group text-left">
-							 <label for="email">University Email</label>
-							 <input id="email" class="form-control" type="email" name="name" placeholder="student@u.rochester.edu">
+								<label for="netid">University Email</label>
+								<div class="input-group">
+								  <input id="netid" type="text" class="form-control" placeholder="netid" aria-label="netid" aria-describedby="basic-addon2">
+								  <span class="input-group-addon" id="basic-addon2">@u.rochester.edu</span>
+								</div>
 						 	</div>
 						  <div class="form-group text-left">
 								<label for="username">Username</label>
@@ -31,8 +34,6 @@
 					      </div>
 								<label for="password">Password</label>
 								<input id="password" class="form-control" type="password" name="name" placeholder="Password">
-								<label for="password-confirm">Confirm Password</label>
-								<input id="password-confirm" class="form-control" type="password" name="name" placeholder="Password">
 							</div>
 							<div class="form-group text-left">
 								<label for="first-name">First Name</label>
