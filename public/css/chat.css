@@ -49,15 +49,24 @@ p, li, input, button {
   margin: 0;
   height: 4em;
 }
+#nav-card-block .card-block {
+  background-color: #979797;
+  border: none;
+  padding: .7em;
+}
 #nav-card-block button {
   background-color: #979797;
   border: none;
+  padding: 0;
 }
 #nav-card-block button:hover {
   background-color: #F2F2F2;
 }
-.btn-group img {
+button img {
   width: 2.5em;
+}
+#nav-card-block .col {
+  padding: 0;
 }
 
 /*-------------------
