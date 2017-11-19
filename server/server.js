@@ -106,11 +106,6 @@ io.on('connection', (socket) => {
 });
 
 
-
-
-
-
-
 //using http instead of app
 server.listen(port, () => {
 	console.log(`server is up on ${port}`);
