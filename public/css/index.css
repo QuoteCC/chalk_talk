@@ -13,3 +13,8 @@
 .card-body form {
   margin: 1rem;
 }
+
+#register {
+  height: 78vh;
+  overflow: scroll;
+}
