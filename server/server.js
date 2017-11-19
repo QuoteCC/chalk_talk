@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 var db
 
 MongoClient.connect('mongodb://<admin>:<chalk_talk>@ds113606.mlab.com:13606/chalk_talk', (err, database) =>{
-	if (err){ 
+	if (err){
 		return console.log(err);
 	}
 	db = database;
