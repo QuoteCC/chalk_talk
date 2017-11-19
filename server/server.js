@@ -9,6 +9,9 @@ const {isRealString} = require('./utils/validation');
 const {Users} = require('./utils/users');
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
+
+const mongoCl = require('mongodb').MongoClient
+
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
@@ -18,6 +21,28 @@ var users = new Users();
 app.use(express.static(publicPath));
 app.use(bodyParser.urlencoded({extended: true}))
 
+//db Connection
+
+var db
+
+MongoClient.connect('mongodb://<admin>:<chalk_talk>@ds113606.mlab.com:13606/chalk_talk', (err, database) =>{
+	if (err){ 
+		return console.log(err);
+	}
+	db = database;
+
+});
+
+//future home of the db Query for users
+app.post('action', (req, res) =>{
+	db.collection("users").save(req.body, (err, result) => {
+		if (err){
+			return console.log(err);
+		}
+		console.log("saved user");
+		res.redirect('/chat.html');
+	});
+})
 
 
 
@@ -73,6 +98,10 @@ io.on('connection', (socket) => {
 		}
 	});
 });
+
+
+
+
 
 
 
