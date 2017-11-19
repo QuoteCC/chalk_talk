@@ -43,30 +43,22 @@ p, li, input, button {
 #nav {
   margin: 1em;
 }
+#nav a {
+  color: #4A4A4A;
+}
 
-#nav-card-block {
-  padding: 0;
-  margin: 0;
-  height: 4em;
+#settings {
+  border-color: #979797;
 }
-#nav-card-block .card-block {
+#settings .card-header {
   background-color: #979797;
-  border: none;
-  padding: .7em;
 }
-#nav-card-block button {
-  background-color: #979797;
-  border: none;
-  padding: 0;
+.show .card-block {
+  height: 47vh;
+  overflow: scroll;
 }
-#nav-card-block button:hover {
-  background-color: #F2F2F2;
-}
-button img {
-  width: 2.5em;
-}
-#nav-card-block .col {
-  padding: 0;
+.selected {
+  font-weight: bold;
 }
 
 /*-------------------
