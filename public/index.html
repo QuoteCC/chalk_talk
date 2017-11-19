@@ -21,14 +21,14 @@
 						</h4>
 					</div>
 				  <div class="card-body">
-						<form action="/chat.html">
+						<form action="/chat" method="POST">
 						  <div class="form-group text-left">
 						    <label for="name">Name</label>
-						    <input id="name" class="form-control" type="text" name="name" placeholder="Name">
+						    <input id="name" class="form-control" type="text" name="user[name]" placeholder="Name">
 						  </div>
 						  <div class="form-group text-left">
 						    <label for="room">Room</label>
-						    <input id="room" type="text" class="form-control" name="room" placeholder="Room">
+						    <input id="room" type="text" class="form-control" name="user[room]" placeholder="Room">
 						  </div>
 						  <button type="submit" class="btn btn-primary">Enter</button>
 						</form>

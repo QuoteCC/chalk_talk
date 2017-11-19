@@ -10,7 +10,7 @@ const {Users} = require('./utils/users');
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
 
-const mongoCl = require('mongodb').MongoClient
+const mongoCl = require('mongodb').MongoClient;
 
 var app = express();
 var server = http.createServer(app);
@@ -19,30 +19,33 @@ var users = new Users();
 
 //configure middleware
 app.use(express.static(publicPath));
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 //db Connection
 
-var db
+var db;
 
-MongoClient.connect('mongodb://<admin>:<chalk_talk>@ds113606.mlab.com:13606/chalk_talk', (err, database) =>{
+
+mongoCl.connect('mongodb://admin:chalk_talk@ds113606.mlab.com:13606/chalk_talk', (err, database) =>{
 	if (err){ 
-		return console.log(err);
+		return console.log(err + " err on Connect");
 	}
 	db = database;
 
 });
 
 //future home of the db Query for users
-app.post('action', (req, res) =>{
+app.post('/chat', (req, res) =>{
 	db.collection("users").save(req.body, (err, result) => {
 		if (err){
 			return console.log(err);
 		}
 		console.log("saved user");
-		res.redirect('/chat.html');
+		var redir = '/chat.html?name=' + req.body.user.name + '&room=' + req.body.user.room;
+		res.redirect(redir);
 	});
-})
+});
 
 
 
