@@ -18,3 +18,8 @@
   height: 78vh;
   overflow: scroll;
 }
+
+a:hover {
+  color: #fff;
+  font-weight: bold;
+}
