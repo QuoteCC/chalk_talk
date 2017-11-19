@@ -26,10 +26,6 @@ app.use(bodyParser.json());
 
 var db;
 
-MongoClient.connect('mongodb://<admin>:<chalk_talk>@ds113606.mlab.com:13606/chalk_talk', (err, database) =>{
-	if (err){
-		return console.log(err);
-
 mongoCl.connect('mongodb://admin:chalk_talk@ds113606.mlab.com:13606/chalk_talk', (err, database) =>{
 	if (err){
 		return console.log(err + " err on Connect");
