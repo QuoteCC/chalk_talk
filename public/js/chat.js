@@ -3,7 +3,7 @@
 var socket = io();
 
 socket.on('connect', function(){
-	var params = $.deparam(window.location.search);
+	var params = $.deparam(window.location.search); //swap this out for cookie
 
 	socket.emit('join', params, function (err){
 		if(err){
