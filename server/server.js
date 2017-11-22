@@ -34,7 +34,7 @@ mongoCl.connect('mongodb://admin:chalk_talk@ds113606.mlab.com:13606/chalk_talk',
 
 });
 
-//future home of the db Query for users
+//future home of the db Query for users - query to see if in, then set cookies
 app.post('/chat', (req, res) =>{
 	db.collection("users").save(req.body, (err, result) => {
 		if (err){
