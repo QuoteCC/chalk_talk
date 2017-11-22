@@ -15,7 +15,11 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+<<<<<<< HEAD
     "cookie": "^0.3.1",
+=======
+    "cookie-parser": "^1.4.3",
+>>>>>>> 42b0387e0f8324bcd680ed6453dba89fdba1db1b
     "express": "^4.16.2",
     "mocha": "^4.0.1",
     "moment": "^2.19.2",
