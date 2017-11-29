@@ -1,11 +1,12 @@
-var moment = require('moment');
+const moment = require('moment');
 
 var generateMessage = (from, text) => {
-	return {
-		from,
-		text,
-		createdAt: moment().valueOf()
-	};
+  return {
+    from: from,
+    text: text,
+    createdAt: moment().valueOf(),
+    url: false
+  };
 };
 
 module.exports = {generateMessage};
