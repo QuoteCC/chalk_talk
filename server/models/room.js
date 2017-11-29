@@ -89,7 +89,6 @@ RoomSchema.statics.cleanAllUserList = function (){
     }
 
     const actions = rooms.map(fn);
-
     return Promise.all(actions);
 
   });

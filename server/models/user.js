@@ -97,6 +97,7 @@ UserSchema.statics.findByToken = function (token){
   try{
     decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch(e) {
+    //return a new promise - will get returned in server as rejected
     return Promise.reject();
   }
   //.findOne - Returns one document that satisfies the specified query criteria on the collection or view.
@@ -112,9 +113,9 @@ UserSchema.statics.findByCredentials = function (email, password){
   var User = this;
 
   return User.findOne({email}).then( (user) => {
-    if(!user)
+    if(!user){
       return Promise.reject();
-
+    }
     return new Promise( (resolve, reject) => {
       bcrypt.compare(password, user.password, (err, res) => {
         if(res){
@@ -129,6 +130,7 @@ UserSchema.statics.findByCredentials = function (email, password){
 
 };
 
+//pre save is a hook that fires on instances when their save method is called, not on the model when update is called.
 UserSchema.pre('save', function (next){
   var user = this;
 

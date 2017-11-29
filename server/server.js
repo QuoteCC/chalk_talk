@@ -1,6 +1,7 @@
 require('./config/config');
 require('./db/mongoose');
 
+//MODULES
 const _ = require('lodash');
 const path = require('path');
 const express = require('express');
@@ -9,7 +10,7 @@ const socketIO = require('socket.io');
 const http = require('http');
 const {ObjectID} = require('mongodb');
 
-
+//javascript destructing allows you to pull properties from objects
 const {generateMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validation');
 const {User} = require('./models/user');
@@ -25,10 +26,10 @@ var io = socketIO(server);
 app.use( bodyParser.json() );
 app.use( express.static(public_path) );
 
-//REMOVE ALL USER CONNECTIONS
 
+//REMOVE ALL USER CONNECTIONS
 Room.cleanAllUserList().then( () => {
-  console.log('Rooms were cleaned');
+  console.log('Rooms were cleaned!!');
 }).catch( (e) =>{
   console.log(e);
 });
@@ -40,11 +41,13 @@ io.on('connection', (socket) => {
 
     let user;
 
-    //Authenticate user
+    //Authenticate the user
     User.findByToken(params.user_token).then( (userDoc) => {
       if(!userDoc){
         throw new Error('Invalid user');
       }
+
+      //user is now equal to the object from the mongo db
       user = userDoc;
 
       //Veirfy room id
@@ -68,11 +71,10 @@ io.on('connection', (socket) => {
       });
 
     }).then( (roomDoc) => {
-      //Happy path
       io.to(params.room_id).emit('updateUserList', roomDoc.getUsers());
-      // socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
+
       socket.emit('updateMessageList', roomDoc.getMessages());
-      socket.broadcast.to(params.room_id).emit('newMessage', generateMessage('Admin', `${user.name} has joined`));
+      socket.broadcast.to(params.room_id).emit('newMessage', generateMessage('Chalky', `${user.name} has joined`));
 
       //Setting custom data
       socket._customdata = {
@@ -81,6 +83,7 @@ io.on('connection', (socket) => {
         room_id: params.room_id
       };
 
+      //A callback is a function called at the completion of a given task; this prevents any blocking, and allows other code to be run in the meantime.
       callback();
 
     }).catch( (e) => callback(e.message));
@@ -88,6 +91,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('createMessage', (newMessage, callback) => {
+
     //Get room
     let tmp_room;
     Room.findById(newMessage.room_id).then( (roomDoc) => {
@@ -154,7 +158,6 @@ io.on('connection', (socket) => {
   socket.on('signOut', (userClient, callback) => {
 
     //Returns true if token is removed
-
     User.findByToken(userClient.token).then( (user) =>{
       if(!user){
         return Promise.reject();
@@ -214,6 +217,9 @@ io.on('connection', (socket) => {
 
 });
 
+
+
+//SERVER LISTENING
 server.listen(port, ()=> {
     console.log(`Server is up on port ${port}`);
 });

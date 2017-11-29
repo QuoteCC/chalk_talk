@@ -1,3 +1,9 @@
+/*
+----------------------
+CLIENT SIDE SOCKET.IO
+----------------------
+*/
+
 var socket = io();
 
 socket.on('connect', function () {
@@ -14,7 +20,7 @@ socket.on('connect', function () {
     return window.location.href = '/';
   }
 
-  //Set room name
+  //Set the room name
   $('#room-name').html(room_name);
 
   var params = {
@@ -77,9 +83,10 @@ socket.on('newMessage', function (message) {
 
 
 var message_form = $('#message-form');
-var _window = $(window);
+// var _window = $(window);
 
 message_form.on('submit', function(e) {
+  //If .preventDefault() is called, the default action of the event will not be triggered.
   e.preventDefault();
   var text = $('[name=message]').val();
   socket.emit('createMessage', {
