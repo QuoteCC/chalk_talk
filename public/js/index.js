@@ -49,7 +49,7 @@ sign_in_form.on('submit', function(e) {
     email: email,
     password: password
   }, function(token, user) {
-    if(user ){
+    if( user ){
       ls_sign_in(user, token);
       console.log(user);
 
@@ -83,6 +83,7 @@ sign_up_form.on('submit', function(e) {
       sign_up_form.addClass('invisible');
       alert('Welcome ' + user.name + ' you can start chatting now!');
     }else {
+      console.log(error);
       alert('Sorry, ' + email + ' is already taken. Try another email.');
     }
 
@@ -188,8 +189,8 @@ function showRoomForm(userName) {
     roomList = roomList.concat(localStorage.getItem('room_list').split(','));
   }
 
-  for(idx in roomList){
-    roomObject.push({index: idx, name: roomList[idx]});
+  for(i in roomList){
+    roomObject.push({index: i, name: roomList[i]});
   }
 
   var data = {
