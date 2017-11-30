@@ -1,16 +1,16 @@
 var socket = io();
 
-// $ Selectors
-var sign_in_form = $('#join-form');
-var sign_up_form = $('#sign-form');
-var room_form = $('#room-form');
+// jQuery Selectors
+var sign_in_form = jQuery('#join-form');
+var sign_up_form = jQuery('#sign-form');
+var room_form = jQuery('#room-form');
 
-var main_container = $('#main-container');
-var sign_up = $('#sign_up');
-var sign_in = $('#sign_in');
-var room_selector = $('#room-selector');
+var main_container = jQuery('#main-container');
+var sign_up = jQuery('#sign_up');
+var sign_in = jQuery('#sign_in');
+var room_selector = jQuery('#room-selector');
 
-var sign_out = $('#sign_out');
+var sign_out = jQuery('#sign_out');
 
 socket.on('connect', function () {
 
@@ -43,13 +43,13 @@ socket.on('updateRoomList', function(rooms) {
 sign_in_form.on('submit', function(e) {
   e.preventDefault();
   //Get users list to check if a user with same name is log in.
-  var email = $('[name=email]').val();
-  var password = $('[name=password]').val();
+  var email = jQuery('[name=email]').val();
+  var password = jQuery('[name=password]').val();
   socket.emit('signIn', {
     email: email,
     password: password
   }, function(token, user) {
-    if( user ){
+    if(user ){
       ls_sign_in(user, token);
       console.log(user);
 
@@ -67,9 +67,9 @@ sign_in_form.on('submit', function(e) {
 sign_up_form.on('submit', function(e) {
   e.preventDefault();
 
-  var name = $('[name=s_name]').val();
-  var password = $('[name=s_password]').val();
-  var email = $('[name=s_email]').val();
+  var name = jQuery('[name=s_name]').val();
+  var password = jQuery('[name=s_password]').val();
+  var email = jQuery('[name=s_email]').val();
 
   socket.emit('newUser', {
     name: name,
@@ -83,7 +83,6 @@ sign_up_form.on('submit', function(e) {
       sign_up_form.addClass('invisible');
       alert('Welcome ' + user.name + ' you can start chatting now!');
     }else {
-      console.log(error);
       alert('Sorry, ' + email + ' is already taken. Try another email.');
     }
 
@@ -98,7 +97,7 @@ room_form.on('submit', function(e) {
   //new room option
   if(value == 1){
 
-    var roomName = $('[name=roomName]').val();
+    var roomName = jQuery('[name=roomName]').val();
     roomName = validString(roomName);
     if(!!roomName){
       socket.emit('newRoom', {
@@ -118,7 +117,6 @@ room_form.on('submit', function(e) {
     }
 
   }else{
-
     // Option selected
     var room = $( "#room-selector option:selected" ).text();
 
@@ -138,13 +136,11 @@ room_form.on('submit', function(e) {
   }
 });
 
-//hide other forms if SIGN UP is clicked
 sign_up.on('click', function() {
   sign_in_form.addClass('invisible');
   sign_up_form.removeClass('invisible');
 });
 
-//hide other forms if SIGN IN is clicked
 sign_in.on('click', function() {
   sign_in_form.removeClass('invisible');
   sign_up_form.addClass('invisible');
@@ -172,7 +168,7 @@ sign_out.on('click', function() {
 room_selector.on('change', function() {
   var value = room_selector.val();
 
-  //show new room form if new room clicked
+
   if (value == 1 ){
     $('#new-room').show();
   }
@@ -182,15 +178,15 @@ function showRoomForm(userName) {
 
   var roomList = ['Select a room','Add a new room'];
   var roomObject = [];
-  var template = $('#rooms-template').html();
+  var template = jQuery('#rooms-template').html();
 
   //GET ROOM LIST
   if( localStorage.getItem('room_list') ){
     roomList = roomList.concat(localStorage.getItem('room_list').split(','));
   }
 
-  for(i in roomList){
-    roomObject.push({index: i, name: roomList[i]});
+  for(idx in roomList){
+    roomObject.push({index: idx, name: roomList[idx]});
   }
 
   var data = {
@@ -198,8 +194,8 @@ function showRoomForm(userName) {
   }
 
   var html = Mustache.render(template, data);
-  $('#room-selector').html(html);
-  $('#userName').html(userName);
+  jQuery('#room-selector').html(html);
+  jQuery('#userName').html(userName);
 
   room_form.removeClass('invisible');
 };
@@ -210,12 +206,10 @@ function ls_sign_in(user, token){
   localStorage.setItem('user_id', user._id);
 }
 
-//
 function validString( val ){
   if(val){
-    //trim the string
-    trimmedVal = val.trim();
-    return typeof trimmedVal === 'string' && trimmedVal.length > 0 ? trimmedVal : false;
+    val = val.trim();
+    return typeof val === 'string' && val.length > 0 ? val : false;
   }else
     return false;
 }

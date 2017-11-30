@@ -83,7 +83,7 @@ socket.on('newMessage', function (message) {
 
 
 var message_form = $('#message-form');
-// var _window = $(window);
+var _window = $(window);
 
 message_form.on('submit', function(e) {
   //If .preventDefault() is called, the default action of the event will not be triggered.
