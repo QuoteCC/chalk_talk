@@ -9,6 +9,7 @@ var socket = io();
 socket.on('connect', function () {
 
   var room_id = localStorage.getItem('room_id');
+  // var room_list = localStorage.getItem('room_list');
   var room_name = localStorage.getItem('room_name');
   var user_name = localStorage.getItem('user_name');
   var user_id = localStorage.getItem('user_id');
@@ -22,8 +23,60 @@ socket.on('connect', function () {
     return window.location.href = '/';
   }
 
-  //Set the room name
-  $('#room-name').html(room_name);
+  ///////////////////////////////////////////////
+  // Set the room names //
+  // var tabs = $('#room-list');
+  // var chats = $('#chat');
+  // let roomList = localStorage.getItem('room_list').split(',');
+  // roomList.forEach(function (room) {
+  //   // for the
+  //   if (room === room_name) {
+  //     tabs.append(
+  //       `<li class="nav-item">
+  //         <a class="nav-link active" data-toggle="tab" href="#${room}" role="tab">
+  //           ${room}
+  //           <i class="fa fa-window-close"></i></a>
+  //       </li>`
+  //     );
+  //     chats.append(
+  //       `<div class="tab-pane active" id="${room}" role="tabpanel">
+  //         <div class="message-container">
+  //           <ul id="messages"></ul>
+  //         </div>
+  //         <form id="message-form">
+  //           <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
+  //           <button id="send-button">Send</button>
+  //         </form>
+  //       </div>`
+  //     );
+  //   } else {
+  //     tabs.append(
+  //       `<li class="nav-item">
+  //         <a class="nav-link" data-toggle="tab" href="#${room}" role="tab">
+  //           ${room}
+  //           <i class="fa fa-window-close invisible"></i></a>
+  //       </li>`
+  //     );
+  //     chats.append(
+  //       `<div class="tab-pane" id="${room}" role="tabpanel">
+  //         <div class="message-container">
+  //           <ul id="messages"></ul>
+  //         </div>
+  //         <form id="message-form">
+  //           <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
+  //           <button id= "send-button">Send</button>
+  //         </form>
+  //       </div>`
+  //     );
+  //   }
+  // });
+  // // append final + add new chat room tab
+  // tabs.append(
+  //   `<li class="nav-item">
+  //     <a class="nav-link" data-toggle="tab" href="#add" role="tab"><i class="fa fa-plus"></i></a>
+  //   </li>`
+  // );
+  ///////////////////////
 
   var params = {
     room_id,
@@ -68,6 +121,7 @@ socket.on('updateMessageList', function (messages) {
     li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
     $('#messages').append(li);
+    // $(`#${room_name}`).find('#messages').append(li);
 
   });
 });
@@ -79,6 +133,8 @@ socket.on('newMessage', function (message) {
   li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
   $('#messages').append(li);
+  // console.log($(`#${room_name}`).find('#messages'));
+  // $(`#${room_name}`).find('#messages').append(li);
 
 
 });
