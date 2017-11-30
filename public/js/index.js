@@ -71,7 +71,7 @@ sign_up_form.on('submit', function(e) {
   var password = $('[name=s_password]').val();
   var email = $('[name=s_email]').val();
 
-  console.log(name, password, email);
+
 
   socket.emit('newUser', {
     name: name,

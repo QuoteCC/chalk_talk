@@ -115,13 +115,16 @@ io.on('connection', (socket) => {
       password: params.password
     });
 
+    console.log(user);
+
     user.save().then( () => {
       return user.generateAuthToken();
     }).then( (token) => {
       callback(null, user, token);
     }).catch( (e) => {
+      console.log(e.message);
       callback(e);
-    } );
+    });
   });
 
   socket.on('getRoomList', (callback) => {
