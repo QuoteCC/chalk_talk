@@ -12,6 +12,7 @@
   <div class="container">
     <nav class="navbar navbar-toggleable-md">
       <h1 id="logo" class="chalktalk">Chalk Talk</h1>
+      <h2><span class="glyphicon glyphicon-off"></span></h2>
     </nav>
 
     <div class="row">
@@ -47,7 +48,15 @@
               </form>
             </div>
             <div class="tab-pane" id="csc212" role="tabpanel">
-              <ul id="messages"></ul>
+              <div class="message-container">
+                <ul id="messages">
+                  <li>Just some text</li>
+                </ul>
+              </div>
+              <form id="message-form">
+                <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
+                <button id= "send-button">Send</button>
+              </form>
             </div>
             <div class="tab-pane" id="rooma" role="tabpanel">
               <ul id="messages"></ul>
