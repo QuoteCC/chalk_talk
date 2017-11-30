@@ -88,15 +88,16 @@ p, li, input, button {
 }
 
 .nav-tabs .nav-link {
+  color: #fff;
   background-color: #4A4A4A;
   border-bottom: 1px solid #fff;
   margin-right: .75em;
 }
-.nav-tabs .nav-link:hover {
-  color: #fff;
-}
-.nav-tabs .nav-link .active:hover {
+.active {
   color: #4A4A4A;
+}
+.fa-window-close {
+  margin-left: .5em;
 }
 
 .tab-pane {
