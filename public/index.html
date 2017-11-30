@@ -23,74 +23,70 @@
             </h4>
           </div>
           <div class="card-body">
-            <form id="join-form" class="invisible" >
-              <div class="form-group text-center">
-                <h3>Welcome</h3>
-              </div>
-              <div class="form-group text-left">
-                <label> E-mail</label>
-                <input type="text" name="email" autofocus>
-              </div>
-              <div class="form-group text-left">
-                <label>Password</label>
-                <input type="password" name="password" >
-              </div>
-              <div class="form-group text-left">
-                <button>Sign In</button>
-              </div>
 
+            <!-- SIGN IN -->
+            <form id="join-form" class="invisible" >
+              <div class="form-group text-left">
+                <label>Email</label></br>
+                <input type="text" name="email" class="form-control">
+              </div>
+              <div class="form-group text-left">
+                <label>Password</label></br>
+                <input type="password" name="password" class="form-control">
+              </div>
+              <div class="form-group text-center">
+                <button class="btn">Log In</button>
+              </div>
               <div>
-                <label >Don't have an account?</label>
-                <button id="sign_up" type="button">Sign Up!</button>
+                <button id="sign_up" type="button" class="secondary-button">Sign Up</button>
               </div>
             </form>
 
+            <!-- SIGN UP -->
             <form id="sign-form" class="invisible">
               <div>
-                <h3>Create the account</h3>
+                <h3>Create an account</h3>
+              </div>
+              <div class="form-group text-left">
+                <label>Display name</label></br>
+                <input type="text" name="s_name" class="form-control">
+              </div>
+              <div class="form-group text-left">
+                <label>E-mail</label></br>
+                <input type="text" name="s_email" class="form-control">
+              </div>
+              <div class="form-group text-left">
+                <label>Password</label></br>
+                <input type="password" name="s_password" class="form-control">
               </div>
               <div>
-                <label> Display name</label>
-                <input type="text" name="s_name" autofocus>
+                <button class="btn">Sign Up</button>
               </div>
-              <div>
-                <label> E-mail</label>
-                <input type="text" name="s_email" autofocus>
-              </div>
-              <div>
-                <label> Password</label>
-                <input type="password" name="s_password" autofocus>
-              </div>
-              <div>
-                <button>Sign Up!</button>
-              </div>
-
-              <div>
-                <label >Have an account?</label>
-                <button id="sign_in" type="button">Sign In</button>
+              </br>
+              <div class="form-group">
+                <label>Already have an account?</label>
+                <button id="sign_in" type="button" class="secondary-button">Sign In</button>
               </div>
             </form>
 
+            <!-- ROOM FORM -->
             <form id="room-form" class="invisible">
+              <h3>Hi <span id="userName"> <!--username appended here--></span>!</br>Please chose your room</h3>
               <div>
-                <h3>Hi <span id="userName"> <!--username appended here--></span>, please chose your room</h3>
-              </div>
-              <div>
-                <label> Online rooms </label>
-                <select id="room-selector">
+                <select class="form-control" id="room-selector">
                   <!--Rooms will be append here-->
                 </select>
 
               </div>
-              <div id="new-room" style="display:none">
-                <label> New room </label>
-                <input type="text" name="roomName" autofocus maxlength="45">
+              <div id="new-room" style="display:none" class="form-group text-left">
+                <label>New room</label>
+                <input type="text" name="roomName" maxlength="45" class="form-control">
               </div>
               <div>
-                <button>Join!</button>
+                <button class="btn">Join!</button>
               </div>
               <div>
-                <button id="sign_out" class="red" type="button">Sign Out</button>
+                <button id="sign_out" class="secondary-button" type="button">Sign Out</button>
               </div>
             </form>
 
