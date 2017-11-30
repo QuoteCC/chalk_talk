@@ -9,7 +9,7 @@ var socket = io();
 socket.on('connect', function () {
 
   var room_id = localStorage.getItem('room_id');
-  // var room_list = localStorage.getItem('room_list');
+  var room_list = localStorage.getItem('room_list');
   var room_name = localStorage.getItem('room_name');
   var user_name = localStorage.getItem('user_name');
   var user_id = localStorage.getItem('user_id');

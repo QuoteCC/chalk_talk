@@ -49,6 +49,7 @@ Room.cleanAllUserList().then( () => {
 io.on('connection', (socket) => {
 
 
+
   socket.on('join', (params, callback) => {
 
     let user;
@@ -65,7 +66,6 @@ io.on('connection', (socket) => {
       //Veirfy room id
       return Room.findById(params.room_id);
     }).then( (roomDoc) => {
-
       let userList = roomDoc.getUsers();
       //Check if user is not duplicated
       let duplicated = userList.filter( u => u.name == user.name);
@@ -84,7 +84,6 @@ io.on('connection', (socket) => {
 
     }).then( (roomDoc) => {
       io.to(params.room_id).emit('updateUserList', roomDoc.getUsers());
-
       socket.emit('updateMessageList', roomDoc.getMessages());
       socket.broadcast.to(params.room_id).emit('newMessage', generateMessage('Chalky', `${user.name} has joined`));
 
@@ -243,7 +242,7 @@ var daily = schedule.scheduleJob('0 0 * * *', function() {
 	var mailOptions = {
 		to: "noreplychalktalk@gmail.com",
 		subject: "Test",
-		text: "Test" 
+		text: "Test"
 	};
 	smtpTransport.sendMail(mailOptions, function(error, response) {
 		if(error){
@@ -253,7 +252,7 @@ var daily = schedule.scheduleJob('0 0 * * *', function() {
 			console.log("Message Sent " + response.message);
 			res.end("sent")
 		}
-		
+
 	});
 
 });
