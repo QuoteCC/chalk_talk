@@ -4,116 +4,80 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/theme.css">
     <link rel="stylesheet" href="/css/chat.css">
     <title>Chat here</title>
   </head>
   <body class="chat">
   <div class="container">
-    <div id="top-bar" class="row">
+    <nav class="navbar navbar-toggleable-md">
       <h1 id="logo" class="chalktalk">Chalk Talk</h1>
-    </div>
+      <i class="fa fa-power-off"></i>
+    </nav>
+
     <div class="row">
-      <div id="nav" class="col-3">
-        <div id="accordion" role="tablist" aria-multiselectable="false">
-          <div class="card">
-            <div class="card-header mb-0 truncate" role="tab">
-              <a data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion" aria-expanded="true">
-                Current Chat Room</a>
+      <div class="col-1"></div>
+      <div class="col-10">
+
+          <!-- Tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#chalktalk" role="tab">ChalkTalk
+                <i class="fa fa-window-close" aria-hidden="true"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#csc212" role="tab">CSC212
+                <i class="fa fa-window-close invisible"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#rooma" role="tab">Chat Room A
+                <i class="fa fa-window-close invisible"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#roomb" role="tab">Chat Room B
+                <i class="fa fa-window-close invisible"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#add" role="tab"><i class="fa fa-plus"></i></a>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div id="chat" class="tab-content">
+
+            <div class="tab-pane active" id="chalktalk" role="tabpanel">
+              <div class="message-container">
+                <ul id="messages"></ul>
+              </div>
+              <form id="message-form">
+                <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
+                <button id= "send-button">Send</button>
+              </form>
             </div>
-            <div id="collapseOne" class="collapse show" aria-expanded="false" style="">
-              <div class="card-block">
-                <ul>
-                  <li>trickett</li>
-                  <li>jwhitehouse</li>
-                  <li>ngorstein</li>
-                  <li>azakroczemski</li>
+            <div class="tab-pane" id="csc212" role="tabpanel">
+              <div class="message-container">
+                <ul id="messages">
+                  <li>Just some text</li>
                 </ul>
               </div>
+              <form id="message-form">
+                <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
+                <button id= "send-button">Send</button>
+              </form>
+            </div>
+            <div class="tab-pane" id="rooma" role="tabpanel">
+              <ul id="messages"></ul>
+            </div>
+            <div class="tab-pane" id="roomb" role="tabpanel">
+              <ul id="messages"></ul>
             </div>
           </div>
 
-          <div class="card">
-            <div class="card-header mb-0 truncate" role="tab">
-              <a data-toggle="collapse" data-target="#collapseTwo" data-parent="#accordion" class="collapsed" aria-expanded="false">
-                CSC212</a>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-expanded="false" style="">
-              <div class="card-block">
-                <ul>
-                  <li>trickett</li>
-                  <li>jwhitehouse</li>
-                  <li>ngorestein</li>
-                  <li>azakroczemski</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header mb-0 truncate" role="tab">
-              <a data-toggle="collapse" data-target="#collapseThree" data-parent="#accordion" class="collapsed" aria-expanded="false">
-                Other chat room</a>
-            </div>
-            <div id="collapseThree" class="collapse" aria-expanded="false">
-              <div class="card-block">
-                <ul>
-                  <li>trickett</li>
-                  <li>jwhitehouse</li>
-                  <li>ngorestein</li>
-                  <li>azakroczemski</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header mb-0 truncate" role="tab">
-              <a data-toggle="collapse" data-target="#collapseFour" data-parent="#accordion" class="collapsed" aria-expanded="false">
-                Other Chat Rom</a>
-            </div>
-            <div id="collapseFour" class="collapse" aria-expanded="false">
-              <div class="card-block">
-                <ul>
-                  <li>trickett</li>
-                  <li>jwhitehouse</li>
-                  <li>ngorestein</li>
-                  <li>azakroczemski</li>
-                </ul>
-              </div>
-              </div>
-            </div>
-
-            <div id="settings" class="card">
-              <div class="card-header mb-0 truncate" role="tab">
-                <a data-toggle="collapse" data-target="#collapseFive" data-parent="#accordion" class="collapsed" aria-expanded="false">
-                  + Add New</a>
-              </div>
-              <div id="collapseFive" class="collapse" aria-expanded="false">
-                <div class="card-block">
-                  <p>CSC174 Content</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      <div id="chat" class="col">
-        <div class="row">
-          <ul id="messages"></ul>
-        </div>
-        <div id= "message-and-chat" class="row sticky">
-          <form id="message-form">
-            <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
-            <button id= "send-button">Send</button>
-          </form>
-        </div>
       </div>
+      <div class="col-1"></div>
     </div>
   </div>
-
-
 
     <script src = "/socket.io/socket.io.js" type="text/javascript"></script>
     <script src = "/js/libs/jquery-3.2.1.min.js" type="text/javascript"> </script>

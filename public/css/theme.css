@@ -16,3 +16,7 @@ p, a, li, h1, h2, h3, h4, h5, h6, button, label, input {
 .chalktalk {
   font-family: 'Chalkduster', sans-serif;
 }
+
+.invisible {
+  display: none;
+}
