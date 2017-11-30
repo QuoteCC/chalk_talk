@@ -49,7 +49,7 @@ sign_in_form.on('submit', function(e) {
     email: email,
     password: password
   }, function(token, user) {
-    if( user ){
+    if(user ){
       ls_sign_in(user, token);
       console.log(user);
 
@@ -71,6 +71,8 @@ sign_up_form.on('submit', function(e) {
   var password = $('[name=s_password]').val();
   var email = $('[name=s_email]').val();
 
+  console.log(name, password, email);
+
   socket.emit('newUser', {
     name: name,
     email: email,
@@ -83,7 +85,7 @@ sign_up_form.on('submit', function(e) {
       sign_up_form.addClass('invisible');
       alert('Welcome ' + user.name + ' you can start chatting now!');
     }else {
-      console.log(error);
+      console.log(error.message);
       alert('Sorry, ' + email + ' is already taken. Try another email.');
     }
 
@@ -118,7 +120,6 @@ room_form.on('submit', function(e) {
     }
 
   }else{
-
     // Option selected
     var room = $( "#room-selector option:selected" ).text();
 
@@ -138,13 +139,11 @@ room_form.on('submit', function(e) {
   }
 });
 
-//hide other forms if SIGN UP is clicked
 sign_up.on('click', function() {
   sign_in_form.addClass('invisible');
   sign_up_form.removeClass('invisible');
 });
 
-//hide other forms if SIGN IN is clicked
 sign_in.on('click', function() {
   sign_in_form.removeClass('invisible');
   sign_up_form.addClass('invisible');
@@ -172,7 +171,7 @@ sign_out.on('click', function() {
 room_selector.on('change', function() {
   var value = room_selector.val();
 
-  //show new room form if new room clicked
+
   if (value == 1 ){
     $('#new-room').show();
   }
@@ -189,8 +188,8 @@ function showRoomForm(userName) {
     roomList = roomList.concat(localStorage.getItem('room_list').split(','));
   }
 
-  for(i in roomList){
-    roomObject.push({index: i, name: roomList[i]});
+  for(idx in roomList){
+    roomObject.push({index: idx, name: roomList[idx]});
   }
 
   var data = {
@@ -210,12 +209,10 @@ function ls_sign_in(user, token){
   localStorage.setItem('user_id', user._id);
 }
 
-//
 function validString( val ){
   if(val){
-    //trim the string
-    trimmedVal = val.trim();
-    return typeof trimmedVal === 'string' && trimmedVal.length > 0 ? trimmedVal : false;
+    val = val.trim();
+    return typeof val === 'string' && val.length > 0 ? val : false;
   }else
     return false;
 }
