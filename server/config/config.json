@@ -2,11 +2,11 @@
   "test": {
     "port": 3000,
     "MONGODB_URI": "mongodb://localhost:27017/ChalkTalkTest",
-    "JWT_SECRET": "secretString"
+    "JWT_SECRET": "fjbhgekwelfhugrekhewlieuhfn"
   },
   "development": {
     "port": 3000,
     "MONGODB_URI": "mongodb://localhost:27017/ChalkTalk",
-    "JWT_SECRET": "anotherSecretString"
+    "JWT_SECRET": "fjbhgekwelfhugrekhewlieuhfn"
   }
 }
