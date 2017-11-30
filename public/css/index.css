@@ -1,17 +1,20 @@
-.card-body{
-  margin: .5em;
-}
 .card, .card-header {
-  background-color: transparent;
+  background-color: transparent!important;
   margin: auto;
+  border: 0;
 }
 .card-body {
   background-color: #4A4A4A;
   border-radius: .25rem;
   padding-bottom: 1rem;
+  margin: .5em;
 }
 .card-body form {
   margin: 1rem;
+}
+
+input {
+  width: 100%;
 }
 
 #register {
@@ -19,7 +22,26 @@
   overflow: scroll;
 }
 
+.secondary-button {
+  color: #fff;
+  font-weight: 200;
+  text-decoration: underline;
+  background: transparent;
+  border: 0;
+}
+.secondary-button:hover {
+  font-weight: bold;
+}
+
 a:hover {
   color: #fff;
   font-weight: bold;
+}
+
+#room-selector {
+  margin-bottom: 1em;
+}
+
+.invisible {
+  display: none;
 }

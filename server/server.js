@@ -1,113 +1,225 @@
-const path = require('path');
-const http = require('http');
-const express = require('express');
-const socketIO = require('socket.io');
-const bodyParser = require('body-parser')
-const mongoCl = require('mongodb').MongoClient;
-const cookie = require('cookie-parser');
+require('./config/config');
+require('./db/mongoose');
 
+//MODULES
+const _ = require('lodash');
+const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const socketIO = require('socket.io');
+const http = require('http');
+const {ObjectID} = require('mongodb');
+
+//javascript destructing allows you to pull properties from objects
 const {generateMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validation');
-const {Users} = require('./utils/users');
-const publicPath = path.join(__dirname, '../public');
+const {User} = require('./models/user');
+const {Room} = require('./models/room');
+
 const port = process.env.PORT || 3000;
-
-
+const public_path = path.join(__dirname, '../public')
 
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
-var users = new Users();
 
-//configure middleware
-app.use(express.static(publicPath));
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-app.use(cookie);
+app.use( bodyParser.json() );
+app.use( express.static(public_path) );
 
-//db Connection
 
-var db;
-
-mongoCl.connect('mongodb://admin:chalk_talk@ds113606.mlab.com:13606/chalk_talk', (err, database) =>{
-	if (err){
-		return console.log(err + " err on Connect");
-	}
-	db = database;
-
+//REMOVE ALL USER CONNECTIONS
+Room.cleanAllUserList().then( () => {
+  console.log('Rooms were cleaned!!');
+}).catch( (e) =>{
+  console.log(e);
 });
 
-//future home of the db Query for users - query to see if in, then set cookies
-app.post('/chat', (req, res) =>{
-
-	db.collection("users").save(req.body, (err, result) => {
-		if (err){
-			return console.log(err);
-		}
-		console.log("saved user");
-		var redir = '/chat.html?name=' + req.body.user.name + '&room=' + req.body.user.room;
-
-		res.redirect(redir);
-	});
-});
-
-
-
-//lets you listen to new connection and do something
 io.on('connection', (socket) => {
-	console.log("new user connected");
 
-	socket.on('join', (params, callback) => {
-		if (!isRealString(params.name) || !isRealString(params.room)) {
-			return callback('NAME AND ROOM REQUIRED.');
-		}
 
-		//to join chat rooms!!!
-		socket.join(params.room);
-		//socket.leave('name of room')
-		//io.to('room Name').emit --- to send to everyone in room 'to'
-		users.removeUser(socket.id);
-		users.addUser(socket.id, params.name, params.room)
+  socket.on('join', (params, callback) => {
 
-		io.to(params.room).emit('updateUserList', users.getUserList(params.room));
+    let user;
 
-		socket.emit('newMessage', generateMessage('Admin', 'Welcome to chalk talk!'));
-		socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined.`));
-		callback();
-	});
+    //Authenticate the user
+    User.findByToken(params.user_token).then( (userDoc) => {
+      if(!userDoc){
+        throw new Error('Invalid user');
+      }
 
-	//listening for client's 'createMessage'
-	socket.on('createMessage', (message, callback) => {
-		var user = users.getUser(socket.id);
+      //user is now equal to the object from the mongo db
+      user = userDoc;
 
-		//only send if user exists and not just sending blank lines and spaces
-		if (user && isRealString(message.text)) {
-			//emit to only the room that user is in!!!
-			io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
-		}
-		callback('This is from the server!');
-		// broadcast sends to everyone but MYSELF
-		// socket.broadcast.emit('newMessage', {
-		// 	from: message.from,
-		// 	text: message.text,
-		// 	createdAt: new Date().getTime()
-		// });
-	});
+      //Veirfy room id
+      return Room.findById(params.room_id);
+    }).then( (roomDoc) => {
 
-	socket.on('disconnect', () => {
-		console.log('user is disconnected');
-		var user = users.removeUser(socket.id);
+      let userList = roomDoc.getUsers();
+      //Check if user is not duplicated
+      let duplicated = userList.filter( u => u.name == user.name);
+      console.log(duplicated);
 
-		//if user was removed
-		if(user) {
-			io.to(user.room).emit('updateUserList', users.getUserList(user.room));
-			io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left.`));
-		}
-	});
+      if( duplicated.length > 0){
+        throw new Error('Sorry. There is an user with this name, try another room :(');
+      }
+
+      socket.join(params.room_id);
+
+      return roomDoc.addUser({
+        _id: ObjectID(user._id),
+        name: user.name
+      });
+
+    }).then( (roomDoc) => {
+      io.to(params.room_id).emit('updateUserList', roomDoc.getUsers());
+
+      socket.emit('updateMessageList', roomDoc.getMessages());
+      socket.broadcast.to(params.room_id).emit('newMessage', generateMessage('Chalky', `${user.name} has joined`));
+
+      //Setting custom data
+      socket._customdata = {
+        user_id: user._id.toString(),
+        user_name: user.name,
+        room_id: params.room_id
+      };
+
+      //A callback is a function called at the completion of a given task; this prevents any blocking, and allows other code to be run in the meantime.
+      callback();
+
+    }).catch( (e) => callback(e.message));
+
+  });
+
+  socket.on('createMessage', (newMessage, callback) => {
+
+    //Get room
+    let tmp_room;
+    Room.findById(newMessage.room_id).then( (roomDoc) => {
+      tmp_room = roomDoc;
+      if(tmp_room && isRealString(newMessage.text)){
+        return roomDoc.addMessage(generateMessage(newMessage.user_name, newMessage.text));
+      }else {
+        return Promise.reject();
+      }
+    }).then( (messageDoc) => {
+      io.to(tmp_room._id).emit('newMessage', generateMessage(newMessage.user_name, newMessage.text));
+      callback();
+    });
+  });
+
+  socket.on('newUser', (params, callback) => {
+
+    let user = new User({
+      name: params.name,
+      email: params.email,
+      password: params.password
+    });
+
+    user.save().then( () => {
+      return user.generateAuthToken();
+    }).then( (token) => {
+      callback(null, user, token);
+    }).catch( (e) => {
+      callback(e);
+    } );
+  });
+
+  socket.on('getRoomList', (callback) => {
+
+    Room.getRoomList().then( (roomList) => {
+      callback(roomList);
+    }).catch( (e) => {
+      callback();
+    });
+
+  });
+
+  socket.on('getRoom', (params, callback) =>{
+
+    Room.findOne({name: params.name}).then( (roomDoc) => {
+      callback(roomDoc);
+    }).catch( (e) => {
+      callback();
+    });
+  });
+
+  socket.on('signIn', (userClient, callback) => {
+    let temp_user;
+    User.findByCredentials(userClient.email, userClient.password).then( (user) => {
+      temp_user = user;
+      return user.generateAuthToken();
+    }).then( (token) =>{
+      callback(token, temp_user);
+    }).catch( (e) => {
+      callback();
+    });
+  });
+
+  socket.on('signOut', (userClient, callback) => {
+
+    //Returns true if token is removed
+    User.findByToken(userClient.token).then( (user) =>{
+      if(!user){
+        return Promise.reject();
+      }
+      return user.removeToken(userClient.token);
+
+    }).then( () =>{
+      callback(true);
+    }).catch( (e) => {
+      callback(false);
+    });
+
+  });
+
+  socket.on('newRoom', (roomClient, callback) =>{
+
+    let tmp_newRoom;
+
+    const room = new Room({
+      name: roomClient.name
+    });
+
+    room.save().then( (newRoom) =>{
+      tmp_newRoom = newRoom;
+      return Room.getRoomList();
+      //updateRoomList client
+
+    }).then( (roomList) => {
+      socket.broadcast.emit('updateRoomList', roomList);
+      callback(tmp_newRoom);
+    }).catch( () => {
+      callback();
+    });
+
+  });
+
+  socket.on('disconnect', () => {
+
+    if( socket._customdata ){
+      let params = socket._customdata;
+      let tmp_room;
+      Room.findById(params.room_id).then( (roomDoc) => {
+        tmp_room = roomDoc;
+        return tmp_room.removeUser(params.user_id);
+      }).then( (userDoc) => {
+        tmp_room.users = tmp_room.users.filter( user => user._id != params.user_id);
+        io.to(params.room_id).emit('updateUserList', tmp_room.users);
+        io.to(params.room_id).emit('newMessage', generateMessage('Chalk Talk', `${params.user_name} has left.`));
+
+        console.log(`${params.user_name} has left room \'${tmp_room.name}\'`);
+      }).catch( (e) => {
+        console.log('error:' +e);
+      });
+    }
+
+  });
+
 });
 
 
-//using http instead of app
-server.listen(port, () => {
-	console.log(`server is up on ${port}`);
+
+//SERVER LISTENING
+server.listen(port, ()=> {
+    console.log(`Server is up on port ${port}`);
 });
