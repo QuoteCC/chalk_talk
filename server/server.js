@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 const socketIO = require('socket.io');
 const http = require('http');
 const {ObjectID} = require('mongodb');
+const nodeMailer = require('nodemailer');
+const schedule = require('node-schedule');
 
 //javascript destructing allows you to pull properties from objects
 const {generateMessage} = require('./utils/message');
@@ -22,6 +24,16 @@ const public_path = path.join(__dirname, '../public')
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
+
+//setup mailer for NodeMail
+var smtpTransport = nodeMailer.createTransport({
+	service: "gmail",
+	host: "smtp.gmail.com",
+	auth: {
+		user: "noreplychalktalk",
+		pass: "Disrupt1"
+	}
+});
 
 app.use( bodyParser.json() );
 app.use( express.static(public_path) );
@@ -146,6 +158,8 @@ io.on('connection', (socket) => {
     });
   });
 
+
+
   socket.on('signIn', (userClient, callback) => {
     let temp_user;
     User.findByCredentials(userClient.email, userClient.password).then( (user) => {
@@ -217,6 +231,30 @@ io.on('connection', (socket) => {
     }
 
   });
+
+});
+
+
+
+//Daily Email
+//rn every hour
+var daily = schedule.scheduleJob('0 0 * * *', function() {
+	console.log("Sent out daily at midnight");
+	var mailOptions = {
+		to: "noreplychalktalk@gmail.com",
+		subject: "Test",
+		text: "Test" 
+	};
+	smtpTransport.sendMail(mailOptions, function(error, response) {
+		if(error){
+			console.log(error);
+			res.end("error");
+		}else{
+			console.log("Message Sent " + response.message);
+			res.end("sent")
+		}
+		
+	});
 
 });
 
