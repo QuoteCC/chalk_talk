@@ -14,8 +14,6 @@ socket.on('connect', function () {
   var user_id = localStorage.getItem('user_id');
   var user_token = localStorage.getItem('user_token');
 
-  var room_list;
-
 
   if( !room_id || !room_name || !user_name || !user_id || !user_token) {
     alert('You MUST sign in to start chatting');
