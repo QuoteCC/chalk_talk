@@ -237,7 +237,7 @@ io.on('connection', (socket) => {
 
 
 //Daily Email
-//rn every hour
+//rn every
 var daily = schedule.scheduleJob('0 0 * * *', function() {
 	console.log("Sent out daily at midnight");
 	var mailOptions = {
@@ -248,10 +248,10 @@ var daily = schedule.scheduleJob('0 0 * * *', function() {
 	smtpTransport.sendMail(mailOptions, function(error, response) {
 		if(error){
 			console.log(error);
-			res.end("error");
+			//res.end("error");
 		}else{
-			console.log("Message Sent " + response.message);
-			res.end("sent")
+			console.log("Message Sent");
+			//res.end("sent")
 		}
 		
 	});
