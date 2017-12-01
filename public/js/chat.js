@@ -82,6 +82,7 @@ socket.on('connect', function () {
   }
 
   socket.emit('join', params, function(err) {
+    console.log('client joined');
     if(err){
       console.log('Error: '+ err);
       alert(err);
