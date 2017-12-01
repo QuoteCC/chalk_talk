@@ -97,7 +97,10 @@ io.on('connection', (socket) => {
       //A callback is a function called at the completion of a given task; this prevents any blocking, and allows other code to be run in the meantime.
       callback();
 
-    }).catch( (e) => callback(e.message));
+    }).catch( (e) => {
+    	console.log(e);
+    	callback(e);
+    });
 
   });
 
