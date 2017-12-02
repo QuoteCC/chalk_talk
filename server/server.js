@@ -48,6 +48,7 @@ Room.cleanAllUserList().then( () => {
 
 io.on('connection', (socket) => {
 
+	console.log('connected');
 
 
   socket.on('join', (params, callback) => {
@@ -62,6 +63,7 @@ io.on('connection', (socket) => {
 
       //user is now equal to the object from the mongo db
       user = userDoc;
+
 
       //Veirfy room id
       return Room.findById(params.room_id);

@@ -21,60 +21,60 @@ socket.on('connect', function () {
     return window.location.href = '/';
   }
 
-  /////////////////////////////////////////////
-  Set the room names //
-  var tabs = $('#room-list');
-  var chats = $('#chat');
-  let roomList = localStorage.getItem('room_list').split(',');
-  roomList.forEach(function (room) {
-    // for the
-    if (room === room_name) {
-      tabs.append(
-        `<li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#${room}" role="tab">
-            ${room}
-            <i class="fa fa-window-close"></i></a>
-        </li>`
-      );
-      chats.append(
-        `<div class="tab-pane active" id="${room}" role="tabpanel">
-          <div class="message-container">
-            <ul id="messages"></ul>
-          </div>
-          <form id="message-form">
-            <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
-            <button id="send-button">Send</button>
-          </form>
-        </div>`
-      );
-    } else {
-      tabs.append(
-        `<li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#${room}" role="tab">
-            ${room}
-            <i class="fa fa-window-close invisible"></i></a>
-        </li>`
-      );
-      chats.append(
-        `<div class="tab-pane" id="${room}" role="tabpanel">
-          <div class="message-container">
-            <ul id="messages"></ul>
-          </div>
-          <form id="message-form">
-            <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
-            <button id= "send-button">Send</button>
-          </form>
-        </div>`
-      );
-    }
-  });
-  // append final + add new chat room tab
-  tabs.append(
-    `<li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#add" role="tab"><i class="fa fa-plus"></i></a>
-    </li>`
-  );
-  ///////////////////////
+  // /////////////////////////////////////////////
+  // // Set the room names //
+  // var tabs = $('#room-list');
+  // var chats = $('#chat');
+  // let roomList = localStorage.getItem('room_list').split(',');
+  // roomList.forEach(function (room) {
+  //   // for the
+  //   if (room === room_name) {
+  //     tabs.append(
+  //       `<li class="nav-item">
+  //         <a class="nav-link active" data-toggle="tab" href="#${room}" role="tab">
+  //           ${room}
+  //           <i class="fa fa-window-close"></i></a>
+  //       </li>`
+  //     );
+  //     chats.append(
+  //       `<div class="tab-pane active" id="${room}" role="tabpanel">
+  //         <div class="message-container">
+  //           <ul id="messages"></ul>
+  //         </div>
+  //         <form id="message-form">
+  //           <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
+  //           <button id="send-button">Send</button>
+  //         </form>
+  //       </div>`
+  //     );
+  //   } else {
+  //     tabs.append(
+  //       `<li class="nav-item">
+  //         <a class="nav-link" data-toggle="tab" href="#${room}" role="tab">
+  //           ${room}
+  //           <i class="fa fa-window-close invisible"></i></a>
+  //       </li>`
+  //     );
+  //     chats.append(
+  //       `<div class="tab-pane" id="${room}" role="tabpanel">
+  //         <div class="message-container">
+  //           <ul id="messages"></ul>
+  //         </div>
+  //         <form id="message-form">
+  //           <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
+  //           <button id= "send-button">Send</button>
+  //         </form>
+  //       </div>`
+  //     );
+  //   }
+  // });
+  // // append final + add new chat room tab
+  // tabs.append(
+  //   `<li class="nav-item">
+  //     <a class="nav-link" data-toggle="tab" href="#add" role="tab"><i class="fa fa-plus"></i></a>
+  //   </li>`
+  // );
+  // ///////////////////////
 
   var params = {
     room_id,
@@ -112,7 +112,7 @@ socket.on('updateUserList', function (users) {
 });
 
 socket.on('updateMessageList', function (messages) {
-
+  console.log('updatemessagelist');
   var request = messages.forEach( function (message, index) {
     var formattedTime = moment(message.createdAt).format('MMM Do, h:mm a');
 
@@ -126,6 +126,7 @@ socket.on('updateMessageList', function (messages) {
 });
 
 socket.on('newMessage', function (message) {
+  console.log('new message');
   var formattedTime = moment(message.createdAt).format('MMM Do, h:mm a');
 
   var li = $('<li></li>');

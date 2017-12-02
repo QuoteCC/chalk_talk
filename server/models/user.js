@@ -95,8 +95,11 @@ UserSchema.statics.findByToken = function (token){
   var decoded;
 
   try{
+    console.log("Token:", token);
+    console.log('Secret:', process.env.JWT_SECRET);
     decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch(e) {
+    console.log('error: ', e.message);
     //return a new promise - will get returned in server as rejected
     return Promise.reject();
   }
