@@ -21,62 +21,6 @@ socket.on('connect', function () {
     return window.location.href = '/';
   }
 
-<<<<<<< HEAD
-  // /////////////////////////////////////////////
-  // // Set the room names //
-  // var tabs = $('#room-list');
-  // var chats = $('#chat');
-  // let roomList = localStorage.getItem('room_list').split(',');
-  // roomList.forEach(function (room) {
-  //   // for the
-  //   if (room === room_name) {
-  //     tabs.append(
-  //       `<li class="nav-item">
-  //         <a class="nav-link active" data-toggle="tab" href="#${room}" role="tab">
-  //           ${room}
-  //           <i class="fa fa-window-close"></i></a>
-  //       </li>`
-  //     );
-  //     chats.append(
-  //       `<div class="tab-pane active" id="${room}" role="tabpanel">
-  //         <div class="message-container">
-  //           <ul id="messages"></ul>
-  //         </div>
-  //         <form id="message-form">
-  //           <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
-  //           <button id="send-button">Send</button>
-  //         </form>
-  //       </div>`
-  //     );
-  //   } else {
-  //     tabs.append(
-  //       `<li class="nav-item">
-  //         <a class="nav-link" data-toggle="tab" href="#${room}" role="tab">
-  //           ${room}
-  //           <i class="fa fa-window-close invisible"></i></a>
-  //       </li>`
-  //     );
-  //     chats.append(
-  //       `<div class="tab-pane" id="${room}" role="tabpanel">
-  //         <div class="message-container">
-  //           <ul id="messages"></ul>
-  //         </div>
-  //         <form id="message-form">
-  //           <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
-  //           <button id= "send-button">Send</button>
-  //         </form>
-  //       </div>`
-  //     );
-  //   }
-  // });
-  // // append final + add new chat room tab
-  // tabs.append(
-  //   `<li class="nav-item">
-  //     <a class="nav-link" data-toggle="tab" href="#add" role="tab"><i class="fa fa-plus"></i></a>
-  //   </li>`
-  // );
-  // ///////////////////////
-=======
   /////////////////////////////////////////////
   // Set the room names //
   var tabs = $('#room-list');
@@ -109,7 +53,6 @@ socket.on('connect', function () {
     </li>`
   );
   ///////////////////////
->>>>>>> 632389f65f0d9a30cdeaa152c638a106598ba3f0
 
   var params = {
     room_id,
