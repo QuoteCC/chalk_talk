@@ -1,8 +1,14 @@
 $(document).ready(function() {
   // icon hide/display on tab switch
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    let newIcon = e.target.children[0];
-    let oldIcon = e.relatedTarget.children[0];
+    let newIcon = '';
+    let oldIcon = '';
+    if (e.target) {
+      newIcon = e.target.children[0];
+    }
+    if (e.relatedTarget) {
+      oldIcon = e.relatedTarget.children[0];
+    }
     if (newIcon.classList.contains('fa-window-close')) {
       newIcon.classList.remove('invisible');
     }
@@ -35,7 +41,7 @@ $(document).ready(function() {
 
   // delete chat room from view
   $('body').on('click', '.fa-window-close', function() {
-    // remove a chat room from view
+    $(this).parent().parent().remove();
     // save settings for the deleted chat room, until user re-enters?
   });
 
