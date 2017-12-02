@@ -36,17 +36,6 @@ socket.on('connect', function () {
             <i class="fa fa-window-close"></i></a>
         </li>`
       );
-      chats.append(
-        `<div class="tab-pane active" id="${validatedRoom}" role="tabpanel">
-          <div class="message-container">
-            <ul id="messages"></ul>
-          </div>
-          <form id="message-form">
-            <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
-            <button id="send-button">Send</button>
-          </form>
-        </div>`
-      );
     } else {
       tabs.append(
         `<li class="nav-item">
@@ -54,17 +43,6 @@ socket.on('connect', function () {
             ${room}
             <i class="fa fa-window-close invisible"></i></a>
         </li>`
-      );
-      chats.append(
-        `<div class="tab-pane" id="${validatedRoom}" role="tabpanel">
-          <div class="message-container">
-            <ul id="messages"></ul>
-          </div>
-          <form id="message-form">
-            <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
-            <button id= "send-button">Send</button>
-          </form>
-        </div>`
       );
     }
   });
@@ -119,9 +97,7 @@ socket.on('updateMessageList', function (messages) {
     var li = $('<li></li>');
     li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
-    // $('#messages').append(li);
-    let room_name = localStorage.getItem('room_name');
-    $(`#${room_name}`).find('#messages').append(li);
+    $('#messages').append(li);
 
   });
 });
@@ -132,9 +108,7 @@ socket.on('newMessage', function (message) {
   var li = $('<li></li>');
   li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
-  // $('#messages').append(li);
-  let room_name = localStorage.getItem('room_name');
-  $(`#${room_name}`).find('#messages').append(li);
+  $('#messages').append(li);
 
 });
 
