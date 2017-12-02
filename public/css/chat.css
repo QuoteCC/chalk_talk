@@ -89,6 +89,10 @@ p, li, input, button {
   height: 80%;
   padding: 0em;
   border: 1px solid #fff;
+  overflow: scroll;
+}
+.message-container {
+  overflow: scroll;
 }
 
 .nav-tabs .nav-link {

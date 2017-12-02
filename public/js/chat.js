@@ -71,7 +71,7 @@ socket.on('connect', function () {
   // append final + add new chat room tab
   tabs.append(
     `<li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#add" role="tab"><i class="fa fa-plus"></i></a>
+      <a id="addnew" class="nav-link" data-toggle="tab" href="#add" role="tab"><i class="fa fa-plus"></i></a>
     </li>`
   );
   ///////////////////////
@@ -119,8 +119,9 @@ socket.on('updateMessageList', function (messages) {
     var li = $('<li></li>');
     li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
-    $('#messages').append(li);
-    // $(`#${room_name}`).find('#messages').append(li);
+    // $('#messages').append(li);
+    let room_name = localStorage.getItem('room_name');
+    $(`#${room_name}`).find('#messages').append(li);
 
   });
 });
@@ -131,10 +132,9 @@ socket.on('newMessage', function (message) {
   var li = $('<li></li>');
   li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
-  $('#messages').append(li);
-  // console.log($(`#${room_name}`).find('#messages'));
-  // $(`#${room_name}`).find('#messages').append(li);
-
+  // $('#messages').append(li);
+  let room_name = localStorage.getItem('room_name');
+  $(`#${room_name}`).find('#messages').append(li);
 
 });
 
