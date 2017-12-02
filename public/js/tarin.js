@@ -14,7 +14,23 @@ $(document).ready(function() {
 
   // add new chat room
   $('body').on('click', '#addnew', function() {
-    // add and enter a new chat room
+    let roomName = window.prompt("New Room: ","Room Name");
+    if (!!roomName) {
+      socket.emit('newRoom', {
+        name: roomName
+      }, function(room) {
+        if (room) {
+          alert('Room created successfuly');
+          localStorage.setItem('room_id', room._id);
+          localStorage.setItem('room_name', room.name);
+          window.location.href = '/chat.html';
+        } else {
+          alert('Unable to create the room, room name is unique');
+        }
+      });
+    } else {
+      alert('Invalid room name.');
+    }
   });
 
   // delete chat room from view
