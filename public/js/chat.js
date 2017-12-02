@@ -31,7 +31,7 @@ socket.on('connect', function () {
     if (room === room_name) {
       tabs.append(
         `<li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#${validatedRoom}" role="tab">
+          <a id="${validatedRoom}" class="nav-link active" data-toggle="tab" href="#${validatedRoom}" role="tab">
             ${room}
             <i class="fa fa-window-close"></i></a>
         </li>`
@@ -39,7 +39,7 @@ socket.on('connect', function () {
     } else {
       tabs.append(
         `<li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#${validatedRoom}" role="tab">
+          <a id="${validatedRoom}" class="nav-link" data-toggle="tab" href="#${validatedRoom}" role="tab">
             ${room}
             <i class="fa fa-window-close invisible"></i></a>
         </li>`
