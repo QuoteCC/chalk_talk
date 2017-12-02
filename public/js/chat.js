@@ -22,22 +22,22 @@ socket.on('connect', function () {
   }
 
   /////////////////////////////////////////////
-  Set the room names //
+  // Set the room names //
   var tabs = $('#room-list');
   var chats = $('#chat');
   let roomList = localStorage.getItem('room_list').split(',');
   roomList.forEach(function (room) {
-    // for the
+    let validatedRoom = room.replace('!',''); // strip out special characters
     if (room === room_name) {
       tabs.append(
         `<li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#${room}" role="tab">
+          <a class="nav-link active" data-toggle="tab" href="#${validatedRoom}" role="tab">
             ${room}
             <i class="fa fa-window-close"></i></a>
         </li>`
       );
       chats.append(
-        `<div class="tab-pane active" id="${room}" role="tabpanel">
+        `<div class="tab-pane active" id="${validatedRoom}" role="tabpanel">
           <div class="message-container">
             <ul id="messages"></ul>
           </div>
@@ -50,13 +50,13 @@ socket.on('connect', function () {
     } else {
       tabs.append(
         `<li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#${room}" role="tab">
+          <a class="nav-link" data-toggle="tab" href="#${validatedRoom}" role="tab">
             ${room}
             <i class="fa fa-window-close invisible"></i></a>
         </li>`
       );
       chats.append(
-        `<div class="tab-pane" id="${room}" role="tabpanel">
+        `<div class="tab-pane" id="${validatedRoom}" role="tabpanel">
           <div class="message-container">
             <ul id="messages"></ul>
           </div>

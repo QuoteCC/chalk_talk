@@ -44,6 +44,10 @@ p, li, input, button {
   padding-bottom: 0em;
   font-size: 3vw;
 }
+#logo:hover {
+  color: #fff;
+  text-decoration: none;
+}
 
 #nav {
   margin: 1em;

@@ -12,7 +12,7 @@
   <body class="chat">
   <div class="container">
     <nav class="navbar navbar-toggleable-md">
-      <h1 id="logo" class="chalktalk">Chalk Talk</h1>
+      <h1><a id="logo" class="chalktalk" href="index.html">Chalk Talk</a></h1>
       <i class="fa fa-power-off"></i>
     </nav>
 
@@ -22,19 +22,15 @@
 
           <!-- Tabs -->
           <ul id="room-list" class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" data-toggle="tab" href="#csc174" role="tab">CSC174
-                <i class="fa fa-window-close"></i></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#" role="tab">More Rooms Coming Soon!
+            <!-- <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#${room}" role="tab">${room}
                 <i class="fa fa-window-close invisible"></i></a>
-            </li>
+            </li>-->
           </ul>
 
           <!-- Tab panes -->
           <div id="chat" class="tab-content">
-            <div class="tab-pane active" id="csc174" role="tabpanel">
+            <!-- <div class="tab-pane" id="${room}" role="tabpanel">
               <div class="message-container">
                 <ul id="messages"></ul>
               </div>
@@ -42,7 +38,7 @@
                 <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">
                 <button id= "send-button">Send</button>
               </form>
-            </div>
+            </div> -->
           </div>
 
       </div>
