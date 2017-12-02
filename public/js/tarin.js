@@ -1,10 +1,59 @@
+$(document).ready(function() {
+  // icon hide/display on tab switch
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    let newIcon = e.target.children[0];
+    let oldIcon = e.relatedTarget.children[0];
+    if (newIcon.classList.contains('fa-window-close')) {
+      newIcon.classList.remove('invisible');
+    }
+    if (oldIcon.classList.contains('fa-window-close')) {
+      oldIcon.classList.add('invisible');
+    }
+    updateChat(e.target);
+  });
 
-// icon hide/display
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-  let newIcon = e.target.children[0];
-  let oldIcon = e.relatedTarget.children[0];
-  if (newIcon.classList.contains('fa-window-close'))
-    newIcon.classList.remove('invisible');
-  if (oldIcon.classList.contains('fa-window-close'))
-    oldIcon.classList.add('invisible');
-})
+  // add new chat room
+  $('body').on('click', '#addnew', function() {
+    let roomName = window.prompt("New Room: ","Room Name");
+    if (!!roomName) {
+      socket.emit('newRoom', {
+        name: roomName
+      }, function(room) {
+        if (room) {
+          alert('Room created successfuly');
+          localStorage.setItem('room_id', room._id);
+          localStorage.setItem('room_name', room.name);
+          window.location.href = '/chat.html';
+        } else {
+          alert('Unable to create the room, room name is unique');
+        }
+      });
+    } else {
+      alert('Invalid room name.');
+    }
+  });
+
+  // delete chat room from view
+  $('body').on('click', '.fa-window-close', function() {
+    // remove a chat room from view
+    // save settings for the deleted chat room, until user re-enters?
+  });
+
+});
+
+function updateChat(newChat) {
+  var socket = io();
+  console.log('switching to this room: ', newChat.getAttribute('id'));
+  let room = newChat.getAttribute('id');
+  socket.emit('getRoom', {
+    name: room
+  }, function(room) {
+    if(room){
+      localStorage.setItem('room_id', room._id);
+      localStorage.setItem('room_name', room.name);
+      window.location.href = '/chat.html'; // reload page
+    } else{
+      alert('There is an error with this room, please chose another one.');
+    }
+  });
+}

@@ -21,6 +21,7 @@ socket.on('connect', function () {
     return window.location.href = '/';
   }
 
+<<<<<<< HEAD
   // /////////////////////////////////////////////
   // // Set the room names //
   // var tabs = $('#room-list');
@@ -75,6 +76,40 @@ socket.on('connect', function () {
   //   </li>`
   // );
   // ///////////////////////
+=======
+  /////////////////////////////////////////////
+  // Set the room names //
+  var tabs = $('#room-list');
+  var chats = $('#chat');
+  let roomList = localStorage.getItem('room_list').split(',');
+  roomList.forEach(function (room) {
+    let validatedRoom = room.replace('!',''); // strip out special characters
+    if (room === room_name) {
+      tabs.append(
+        `<li class="nav-item">
+          <a id="${validatedRoom}" class="nav-link active" data-toggle="tab" href="#${validatedRoom}" role="tab">
+            ${room}
+            <i class="fa fa-window-close"></i></a>
+        </li>`
+      );
+    } else {
+      tabs.append(
+        `<li class="nav-item">
+          <a id="${validatedRoom}" class="nav-link" data-toggle="tab" href="#${validatedRoom}" role="tab">
+            ${room}
+            <i class="fa fa-window-close invisible"></i></a>
+        </li>`
+      );
+    }
+  });
+  // append final + add new chat room tab
+  tabs.append(
+    `<li class="nav-item">
+      <a id="addnew" class="nav-link" data-toggle="tab" href="#add" role="tab"><i class="fa fa-plus"></i></a>
+    </li>`
+  );
+  ///////////////////////
+>>>>>>> 632389f65f0d9a30cdeaa152c638a106598ba3f0
 
   var params = {
     room_id,
@@ -120,7 +155,6 @@ socket.on('updateMessageList', function (messages) {
     li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
     $('#messages').append(li);
-    // $(`#${room_name}`).find('#messages').append(li);
 
   });
 });
@@ -133,9 +167,6 @@ socket.on('newMessage', function (message) {
   li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
   $('#messages').append(li);
-  // console.log($(`#${room_name}`).find('#messages'));
-  // $(`#${room_name}`).find('#messages').append(li);
-
 
 });
 
