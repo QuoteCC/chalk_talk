@@ -120,6 +120,7 @@ p, li, input, button {
 #messages {
   overflow: scroll;
   margin-top: 1em;
+  list-style: none;
 }
 
 /*#message-container {
@@ -135,8 +136,9 @@ p, li, input, button {
 
 /* we should use flex box for this instead */
 #chat-text-box {
-  width: 80%;
+  width: 80% !important;
+
 }
 #send-button {
-  width: 15%;
+  width: 10% !important;
 }

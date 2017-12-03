@@ -98,6 +98,8 @@ socket.on('updateMessageList', function (messages) {
     li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
     $('#messages').append(li);
+    //scroll to the bottom at the beginning of loading
+    $('.message-container').scrollTop($('.message-container')[0].scrollHeight)
 
   });
 });
@@ -110,12 +112,33 @@ socket.on('newMessage', function (message) {
   li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
   $('#messages').append(li);
+  //scroll to the bottom whena  new message is sent
+  $('.message-container').scrollTop($('.message-container')[0].scrollHeight)
 
+});
+
+$(document).ready(function(){
+    $('#chat-text-box').keypress(function(e){
+      if(e.keyCode==13)
+      $('#send-button').click();
+    });
 });
 
 
 var message_form = $('#message-form');
 // var _window = $(window);
+$(function() {
+  // Initializes and creates emoji set from sprite sheet
+  window.emojiPicker = new EmojiPicker({
+    emojiable_selector: '[data-emojiable=true]',
+    assetsPath: '../lib/img/',
+    popupButtonClasses: 'fa fa-smile-o'
+  });
+      // Finds all elements with `emojiable_selector` and converts them to rich emoji input fields
+      // You may want to delay this step if you have dynamically created input fields that appear later in the loading process
+      // It can be called as many times as necessary; previously converted input fields will not be converted again
+      window.emojiPicker.discover();
+    });
 
 message_form.on('submit', function(e) {
   //If .preventDefault() is called, the default action of the event will not be triggered.
@@ -129,6 +152,7 @@ message_form.on('submit', function(e) {
     $('[name=message]').val('');
   });
 });
+
 
 
 
