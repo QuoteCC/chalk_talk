@@ -6,6 +6,8 @@ CLIENT SIDE SOCKET.IO
 
 var socket = io();
 
+
+
 socket.on('connect', function () {
 
   var room_id = localStorage.getItem('room_id');
@@ -59,6 +61,7 @@ socket.on('connect', function () {
     user_token
   }
 
+
   socket.emit('join', params, function(err) {
     console.log('client joined');
     if(err){
@@ -67,8 +70,43 @@ socket.on('connect', function () {
       window.location.href = '/';
     }
 
+
   });
 });
+
+//handles clicking the generated buttons
+$("#messages").on('click', '.upvote' , function(){
+    console.log(this.value);
+    var room_id = localStorage.getItem('room_id');
+    var user_id = localStorage.getItem('user_id');
+    var currSpan = $('#'+this.value);
+    var msgId = this.value;
+
+     //send votes to the server
+     var params = {
+       msgId,
+       room_id,
+       user_id
+     }
+    socket.emit('upvote', params, function(err){
+      if(err){
+        console.log(err);
+      }
+      console.log('upvote data sent');
+
+    });
+    var currText = currSpan.text();
+    console.log("Pre Conv:", currText);
+    console.log("test Conversion", parseInt(currText));
+    currText = parseInt(currText)+1;
+
+    console.log("curr text", currText);
+    currSpan.html(currText);
+    // currSpan.html(parseInt(currSpan.text()) + 1);
+
+
+  });
+
 
 socket.on('disconnect',function () {
   console.log('Disconnected from the server');
@@ -95,7 +133,8 @@ socket.on('updateMessageList', function (messages) {
     var formattedTime = moment(message.createdAt).format('MMM Do, h:mm a');
 
     var li = $('<li></li>');
-    li.text(`${message.from}: ${formattedTime} ${message.text}`);
+    //li.text(`${message.from}: ${formattedTime} ${message.text}`);
+    li.html(`${message.from}: ${formattedTime} ${message.text} <button class = 'upvote' value = ${message.mId}>Upvote</button><span id=${message.mId}>0</span>`);
 
     $('#messages').append(li);
 
@@ -103,11 +142,14 @@ socket.on('updateMessageList', function (messages) {
 });
 
 socket.on('newMessage', function (message) {
-  console.log('new message');
+  //console.log('new message');
   var formattedTime = moment(message.createdAt).format('MMM Do, h:mm a');
+  //get the array maxlength and add it to span
 
   var li = $('<li></li>');
-  li.text(`${message.from}: ${formattedTime} ${message.text}`);
+  //console.log(message.mId);
+  li.html(`${message.from}: ${formattedTime} ${message.text} <button class = 'upvote' value = ${message.mId}>Upvote</button><span>0</span>`);
+  // li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
   $('#messages').append(li);
 
@@ -129,21 +171,3 @@ message_form.on('submit', function(e) {
     $('[name=message]').val('');
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// console.log('Just for scrolling');

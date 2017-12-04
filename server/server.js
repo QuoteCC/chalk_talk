@@ -113,12 +113,13 @@ io.on('connection', (socket) => {
     Room.findById(newMessage.room_id).then( (roomDoc) => {
       tmp_room = roomDoc;
       if(tmp_room && isRealString(newMessage.text)){
-        return roomDoc.addMessage(generateMessage(newMessage.user_name, newMessage.text));
+				console.log(roomDoc.messages.length);
+        return roomDoc.addMessage(generateMessage(newMessage.user_name, newMessage.text, roomDoc.messages.length));
       }else {
         return Promise.reject();
       }
     }).then( (messageDoc) => {
-      io.to(tmp_room._id).emit('newMessage', generateMessage(newMessage.user_name, newMessage.text));
+      io.to(tmp_room._id).emit('newMessage', generateMessage(newMessage.user_name, newMessage.text, tmp_room.messages.length));
       callback();
     });
   });
@@ -236,7 +237,17 @@ io.on('connection', (socket) => {
 
   });
 
+	// socket.on('upvote',  function(params) {
+	// 	// console.log("data being sent " , params.room_id)
+	// 	var msg = Room.getMessageByRoomId(params.msgId, params.room_id,params.user_id);
+  //
+  //
+  //
+  //
+	// });
+
 });
+
 
 
 

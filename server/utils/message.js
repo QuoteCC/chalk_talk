@@ -1,11 +1,12 @@
 const moment = require('moment');
 
-var generateMessage = (from, text) => {
+var generateMessage = (from, text, id) => {
   return {
     from: from,
     text: text,
     createdAt: moment().valueOf(),
-    url: false
+    url: false,
+    mId: id
   };
 };
 
