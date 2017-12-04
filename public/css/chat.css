@@ -129,14 +129,24 @@ p, li, input, button {
 
 #message-form {
   margin: 1em;
-  width: 100%;
+  width: 80%;
+  height:34px;
+  border-style: none;
   /*background-color: #F2F2F2;
   border: 1px solid #fff;*/
 }
 
+#messagingBar {
+  width: 100%;
+}
+
+#emoji-wysiwyg-editor {
+  height: 34px;
+}
 /* we should use flex box for this instead */
 #chat-text-box {
   width: 80% !important;
+  height: 34px;
 
 }
 #send-button {

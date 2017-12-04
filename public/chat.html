@@ -33,19 +33,23 @@
 
           <!-- Tab panes -->
           <div id="chat" class="tab-content">
-            <div class="tab-pane active" role="tabpanel">
-              <div id="mc" class="message-container">
-                <ul id="messages"></ul>
-              </div>
-              <form id="message-form">
-                <p id="message-form" class="news emoji-picker-container">
-                  <!-- <input type="email" class="form-control" placeholder="Input field" data-emojiable="true"> -->
-                <textarea id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false" data-emojiable="true" contenteditable=true></textarea>
-              </p>
-                <button id= "send-button">Send</button>
-              </form>
-            </div>
-          </div>
+             <div class="tab-pane active" role="tabpanel">
+               <div id="mc" class="message-container">
+                 <ul id="messages"></ul>
+               </div>
+               <div id="messagingBar">
+               <form id="message-form">
+                 <p id="message-form" class="news emoji-picker-container">
+                   <!-- <input type="email" class="form-control" placeholder="Input field" data-emojiable="true"> -->
+                 <textarea id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false" data-emojiable="true" contenteditable=true></textarea>
+               </p>
+               <button id= "send-button">Send</button>
+
+               </form>
+
+             </div>
+             </div>
+
 
       </div>
       <div class="col-1"></div>
@@ -63,7 +67,20 @@
     <script src="/lib/js/util.js"></script>
     <script src="/lib/js/jquery.emojiarea.js"></script>
     <script src="/lib/js/emoji-picker.js"></script>
-
+    <script>
+    $(function() {
+      // Initializes and creates emoji set from sprite sheet
+      window.emojiPicker = new EmojiPicker({
+        emojiable_selector: '[data-emojiable=true]',
+        assetsPath: '../lib/img/',
+        popupButtonClasses: 'fa fa-smile-o'
+      });
+          // Finds all elements with `emojiable_selector` and converts them to rich emoji input fields
+          // You may want to delay this step if you have dynamically created input fields that appear later in the loading process
+          // It can be called as many times as necessary; previously converted input fields will not be converted again
+          window.emojiPicker.discover();
+        });
+        </script>
 <link rel="stylesheet" href="/css/chat.css">
 
   </body>
