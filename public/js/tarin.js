@@ -45,6 +45,10 @@ $(document).ready(function() {
     // save settings for the deleted chat room, until user re-enters?
   });
 
+  $('body').on('click', '#send-button', function() {
+    $('.emojionearea-editor').html('');
+  });
+
 });
 
 function updateChat(newChat) {

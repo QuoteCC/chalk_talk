@@ -172,5 +172,5 @@ p, li, input, button {
   width: 80%;
 }
 #send-button {
-  width: 15%;
+  padding: .4em .8em;
 }
