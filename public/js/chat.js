@@ -66,7 +66,7 @@ socket.on('connect', function () {
     console.log('client joined');
     if(err){
       console.log('Error: '+ err);
-      alert(err);
+      //alert(err);
       window.location.href = '/';
     }
 
@@ -114,6 +114,7 @@ socket.on('updateUpvote', function (params) {
 });
 
 socket.on('updateUserList', function (users) {
+  $('#users').html("");
   users.forEach( function (user) {
     let li = $('<li></li>');
     li.html(`<i class="fa fa-dot-circle-o"></i> ${user.name}`);

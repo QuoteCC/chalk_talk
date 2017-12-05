@@ -55,7 +55,7 @@ sign_in_form.on('submit', function(e) {
 
       showRoomForm(user.name);
       sign_in_form.addClass('invisible');
-      alert('Welcome ' + user.name + ' you can start chatting now!');
+      //alert('Welcome ' + user.name + ' you can start chatting now!');
     }else{
       alert('Sorry, we could not find a user');
     }
@@ -83,7 +83,7 @@ sign_up_form.on('submit', function(e) {
       ls_sign_in(user, token);
       showRoomForm(localStorage.getItem('user_name'));
       sign_up_form.addClass('invisible');
-      alert('Welcome ' + user.name + ' you can start chatting now!');
+      //alert('Welcome ' + user.name + ' you can start chatting now!');
     }else {
       console.log(error.message);
       alert('Sorry, ' + email + ' is already taken. Try another email.');
@@ -107,7 +107,7 @@ room_form.on('submit', function(e) {
         name: roomName
       }, function(room) {
         if(room){
-          alert('Room created successfuly');
+          //alert('Room created successfuly');
           localStorage.setItem('room_id', room._id);
           localStorage.setItem('room_name', room.name);
           window.location.href = '/chat.html';
