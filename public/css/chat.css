@@ -110,12 +110,12 @@ p, li, input, button {
 }
 #chat-container {
   height: 91%;
-  overflow: scroll;
   background-color: #4A4A4A;
   margin: 1em;
 }
 #messages-container {
   padding: 0;
+  overflow: scroll;
 }
 #messages {
   overflow: scroll;
@@ -147,7 +147,7 @@ p, li, input, button {
 
 
 #users {
-  padding-left: 0;
+  padding: 1em;
 }
 #users-container {
   background-color: #4A4A4A;
