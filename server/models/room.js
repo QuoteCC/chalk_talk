@@ -72,37 +72,30 @@ RoomSchema.methods.removeUser = function(id){
   });
 }
 
-
-// UserSchema.statics.findByCredentials = function (email, password){
-//   var User = this;
-//
-//   return User.findOne({email}).then( (user) => {
-//     if(!user){
-//       return Promise.reject();
-//     }
-//     return new Promise( (resolve, reject) => {
-//       bcrypt.compare(password, user.password, (err, res) => {
-//         if(res){
-//           resolve(user);
-//         }else{
-//           reject();
-//         }
-//       });
-//     } )
-//   });
-
-
-RoomSchema.methods.getMessageByRoomId = function(id, mId){
+RoomSchema.statics.getMessageByRoomId = function(mId, room_id, user_id){
   const Room = this;
-  var curRoom = Room.findOne({id});
-  curRoom.messages.forEach((message) => {
-    if (message.mId == mId){
-      return message;
-    }
+  console.log("Room Id", room_id);
+  Room.findOne({'_id':room_id}).then((curRoom) => {
+    console.log("curr room", curRoom);
+    var contains = false;
+    var msg  = curRoom.messages.findOne({
+      'mId': mId});
+    msg.upvotes.findOne({user_id}).then( (user) => {
+      if(!user){
+        msg.upvotes.push(user_id);
+      }
+      else {
+        msg.upvotes.findOneandRemove(user_id);
+      }
+      return new Promise ( resolve => resolve(msg.upvotes.length))
+    });
 
+
+
+  }).catch((e) => {
+    console.log("empty room err", e);
+    return Promise.reject();
   });
-  console.log("This shouldn't happen");
-
 };
 
 RoomSchema.statics.getRoomList = function (){
