@@ -135,6 +135,9 @@ p, li, input, button {
   font-size: 0.75em;
   color: #a4a4a4;
 }
+.chalky {
+  padding-left: 10px;
+}
 
 .upvote {
   padding: .2em .4em;

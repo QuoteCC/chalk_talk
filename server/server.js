@@ -227,7 +227,7 @@ io.on('connection', (socket) => {
       }).then( (userDoc) => {
         tmp_room.users = tmp_room.users.filter( user => user._id != params.user_id);
         io.to(params.room_id).emit('updateUserList', tmp_room.users);
-        io.to(params.room_id).emit('newMessage', generateMessage('Chalk Talk', `${params.user_name} has left.`));
+        io.to(params.room_id).emit('newMessage', generateMessage('Chalky', `${params.user_name} has left.`));
 
         console.log(`${params.user_name} has left room \'${tmp_room.name}\'`);
       }).catch( (e) => {

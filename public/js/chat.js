@@ -128,21 +128,16 @@ socket.on('updateMessageList', function (messages) {
   var request = messages.forEach( function (message, index) {
     var formattedTime = moment(message.createdAt).format('MMM Do, h:mm a');
 
-    var li = $('<li class="list-group-item justify-content-between"></li>');
+    var li = '';
 
-    // li.html(`
-    //     <div>
-    //       <span class="from">${message.from}</span> <span class="timestamp">${formattedTime}</span></br>
-    //       ${message.text}
-    //     </div>
-    //     <div>
-    //       <button class='btn btn-outline-success upvote' value=${message.mId}><i class="fa fa-plus" aria-hidden="true"></i></button>
-    //       <span id=${message.mId} class="badge badge-default badge-pill">0</span>
-    //     </div>
-    // `);
-
-    if (message.from != "Chalky") {
-      li.html(`
+    if (message.from === "Chalky") {
+      li = $('<li class="justify-content-between"></li>').html(`
+          <div class="chalky">
+            <span class="timestamp">${formattedTime}: ${message.text}</span>
+          </div>
+      `);
+    } else {
+      li = $('<li class="list-group-item justify-content-between"></li>').html(`
           <div>
             <span class="from">${message.from}</span> <span class="timestamp">${formattedTime}</span></br>
             ${message.text}
@@ -152,15 +147,10 @@ socket.on('updateMessageList', function (messages) {
             <span id=${message.mId} class="badge badge-default badge-pill">0</span>
           </div>
       `);
-    } else if (message.from == "Chalky") {
-      li.html(`
-          <div class="chalky">
-            <span class="timestamp">${formattedTime}: ${message.text}</span>
-          </div>
-      `);
     }
 
     $('#messages').append(li);
+    $('.chalky').parent().removeClass('list-group-item');
     //scroll to the bottom at the beginning of loading
     $('#messages-container').scrollTop($('#messages-container')[0].scrollHeight);
 
@@ -168,26 +158,19 @@ socket.on('updateMessageList', function (messages) {
 });
 
 socket.on('newMessage', function (message) {
-  //console.log('new message');
   var formattedTime = moment(message.createdAt).format('MMM Do, h:mm a');
   //get the array maxlength and add it to span
 
-  var li = $('<li class="list-group-item justify-content-between"></li>');
-  //console.log(message.mId);
-  // li.html(`
-  //     <div>
-  //       <span class="from">${message.from}</span> <span class="timestamp">${formattedTime}</span></br>
-  //       ${message.text}
-  //     </div>
-  //     <div>
-  //       <button class='btn btn-outline-success upvote' value=${message.mId}><i class="fa fa-plus" aria-hidden="true"></i></button>
-  //       <span id=${message.mId} class="badge badge-default badge-pill">0</span>
-  //     </div>
-  // `);
-  // li.text(`${message.from}: ${formattedTime} ${message.text}`);
+  var li = '';
 
-  if (message.from != "Chalky") {
-    li.html(`
+  if (message.from == "Chalky") {
+    li = $('<li class="justify-content-between"></li>').html(`
+        <div class="chalky">
+          <span class="timestamp">${formattedTime}: ${message.text}</span>
+        </div>
+    `);
+  } else {
+    li = $('<li class="list-group-item justify-content-between"></li>').html(`
         <div>
           <span class="from">${message.from}</span> <span class="timestamp">${formattedTime}</span></br>
           ${message.text}
@@ -195,12 +178,6 @@ socket.on('newMessage', function (message) {
         <div>
           <button class='btn btn-outline-success upvote' value=${message.mId}><i class="fa fa-plus" aria-hidden="true"></i></button>
           <span id=${message.mId} class="badge badge-default badge-pill">0</span>
-        </div>
-    `);
-  } else if (message.from == "Chalky") {
-    li.html(`
-        <div class="chalky">
-          <span class="timestamp">${formattedTime}: ${message.text}</span>
         </div>
     `);
   }
