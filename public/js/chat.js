@@ -76,7 +76,7 @@ socket.on('connect', function () {
 
 //handles clicking the generated buttons
 $("#messages").on('click', '.upvote' , function(){
-    console.log(this.value);
+    console.log("BUTTON VALUE?:",this.value);
     var room_id = localStorage.getItem('room_id');
     var user_id = localStorage.getItem('user_id');
     var currSpan = $('#'+this.value);
@@ -90,12 +90,12 @@ $("#messages").on('click', '.upvote' , function(){
      }
     socket.emit('upvote', params, function(err){
       if(err){
-        console.log(err);
+        console.log("error Voting",err);
       }
       console.log('upvote data sent');
 
     });
-    
+
   });
 
 

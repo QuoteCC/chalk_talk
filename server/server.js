@@ -114,12 +114,12 @@ io.on('connection', (socket) => {
       tmp_room = roomDoc;
       if(tmp_room && isRealString(newMessage.text)){
 				console.log(roomDoc.messages.length);
-        return roomDoc.addMessage(generateMessage(newMessage.user_name, newMessage.text, roomDoc.messages.length));
+        return roomDoc.addMessage(generateMessage(newMessage.user_name, newMessage.text, roomDoc.messages.length-1));
       }else {
         return Promise.reject();
       }
     }).then( (messageDoc) => {
-      io.to(tmp_room._id).emit('newMessage', generateMessage(newMessage.user_name, newMessage.text, tmp_room.messages.length));
+      io.to(tmp_room._id).emit('newMessage', generateMessage(newMessage.user_name, newMessage.text, tmp_room.messages.length-1));
       callback();
     });
   });
