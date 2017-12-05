@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+  $("#chat-text-box").emojioneArea();
+
   // icon hide/display on tab switch
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     let newIcon = '';
@@ -44,6 +47,43 @@ $(document).ready(function() {
     $(this).parent().parent().remove();
     // save settings for the deleted chat room, until user re-enters?
   });
+
+  $('body').on('click', '#send-button', function() {
+    $('.emojionearea-editor').html('');
+  });
+
+  // $('#chat-text-box').keyup(function (e) {
+  //   if (e.which == 13) {
+  //     console.log('farts');
+  //     console.log($('#send-button'));
+  //   }
+  // });
+
+  // $(".message-input").emojioneArea({
+	// 	events: {
+	// 		keyup: function (editor, event) {
+	// 			console.log(editor);
+	// 			console.log(event);
+	// 			console.log('event:keypress');
+	// 		}
+	// 	}
+	// });
+
+  // $("#chat-text-box").emojioneArea({
+  //   events: {
+  //     keyup: function(editor, event) {
+  //     	// catches everything but enter
+  //       if (event.which == 13) {
+  //         alert("Enter key pressed");
+  //         $("#form").submit();
+  //         // event.preventDefault();
+  //         // return false;
+  //       } else {
+  //       	alert("Key pressed: " + event.which);
+  //       }
+  //     }
+  //   }
+  // });
 
 });
 

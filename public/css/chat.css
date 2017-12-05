@@ -4,6 +4,7 @@
 
 body {
   max-height: 100%;
+  overflow: hidden;
 }
 
 .container {
@@ -106,7 +107,6 @@ p, li, input, button {
   height: 80%;
   padding: 0em;
   border: 1px solid #fff;
-  overflow: scroll;
 }
 #chat-container {
   height: 91%;
@@ -118,7 +118,6 @@ p, li, input, button {
   overflow: scroll;
 }
 #messages {
-  overflow: scroll;
   list-style-type: none;
   padding: 15px;
   background-color: #f2f2f2;
@@ -173,5 +172,5 @@ p, li, input, button {
   width: 80%;
 }
 #send-button {
-  width: 15%;
+  padding: .4em .8em;
 }
