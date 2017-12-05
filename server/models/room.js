@@ -74,28 +74,63 @@ RoomSchema.methods.removeUser = function(id){
 
 RoomSchema.statics.getMessageByRoomId = function(mId, room_id, user_id){
   const Room = this;
-  console.log("Room Id", room_id);
-  Room.findOne({'_id':room_id}).then((curRoom) => {
-    console.log("curr room", curRoom);
-    var contains = false;
-    var msg  = curRoom.messages.findOne({
-      'mId': mId});
-    msg.upvotes.findOne({user_id}).then( (user) => {
-      if(!user){
-        msg.upvotes.push(user_id);
+  //console.log("Room Id", room_id);
+  return Room.findById(room_id).then((curRoom) => {
+    //console.log("cur room", curRoom);
+
+    //mid is the middle man
+    var mid = curRoom.messages;
+    //mid[mId].text = "updated?";
+
+    var found = false;
+    mid[mId].upvotes.forEach(function(uId, index){
+      if (uId == user_id){
+        //console.log("found the user, removing");
+        mid[mId].upvotes.splice(index, 1);
+        found = true;
+        //break;
       }
-      else {
-        msg.upvotes.findOneandRemove(user_id);
-      }
-      return new Promise ( resolve => resolve(msg.upvotes.length))
     });
+    if (!found){
+      //console.log("not found, added");
+      mid[mId].upvotes.push(user_id);
+    }
+    //console.log("upvote Length", mid[mId].upvotes);
 
 
 
-  }).catch((e) => {
-    console.log("empty room err", e);
-    return Promise.reject();
+
+    //this is the query
+    var test = Room.findByIdAndUpdate(room_id, {messages: mid});
+
+    //execute the query
+    test.exec();
+    //console.log("len right before send", mid[mId].upvotes.length)
+    //return mid[mId].upvotes.length;
+    var p =  new Promise ( function(resolve, reject) {
+      resolve(mid[mId].upvotes.length)
+    });
+    //console.log("promise", p);
+    return p;
+
   });
+  /*var msg  = curRoom.messages.findOne({
+      'mId': mId});
+    return msg.upvotes.findOne({user_id})
+  }).then((user) => {
+    console.log("FoundUser:", user);
+    if(!user){
+      msg.upvotes.push(user_id);
+    }
+    else {
+      msg.upvotes.findOneandRemove(user_id);
+    }
+    console.log(msg.upvotes);
+    return new Promise ( resolve => resolve(msg.upvotes.length));
+  }).catch((e) => {
+    console.log("err", e);
+    return Promise.reject();
+  });*/
 };
 
 RoomSchema.statics.getRoomList = function (){

@@ -95,16 +95,7 @@ $("#messages").on('click', '.upvote' , function(){
       console.log('upvote data sent');
 
     });
-    var currText = currSpan.text();
-    console.log("Pre Conv:", currText);
-    console.log("test Conversion", parseInt(currText));
-    currText = parseInt(currText)+1;
-
-    console.log("curr text", currText);
-    currSpan.html(currText);
-    // currSpan.html(parseInt(currSpan.text()) + 1);
-
-
+    
   });
 
 
@@ -115,6 +106,11 @@ socket.on('disconnect',function () {
       user_id: localStorage.getItem('user_id'),
       room_id: localStorage.getItem('room_id')
     });
+});
+
+socket.on('updateUpvote', function (params) {
+  var currSpan = $('#'+params.mId);
+  currSpan.html(params.len);
 });
 
 socket.on('updateUserList', function (users) {
