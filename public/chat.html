@@ -21,21 +21,16 @@
       <div class="col-10">
 
           <!-- Tabs -->
-          <ul id="room-list" class="nav nav-tabs" role="tablist">
-            <!-- <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#${room}" role="tab">${room}
-                <i class="fa fa-window-close invisible"></i></a>
-            </li>-->
-          </ul>
+          <ul id="room-list" class="nav nav-tabs" role="tablist"></ul>
 
-          <!-- Tab panes -->
+          <!-- Chat Box -->
           <div id="chat" class="tab-content">
             <div class="tab-pane active" role="tabpanel">
-              <div class="row message-container">
-                <div class="col-10">
+              <div id="chat-container" class="row">
+                <div id="messages-container" class="col-10">
                   <ul id="messages" class="list-group"></ul>
                 </div>
-                <div class="col-2 users-container">
+                <div id="users-container" class="col-2">
                   <ol id="users"></ol>
                 </div>
               </div>

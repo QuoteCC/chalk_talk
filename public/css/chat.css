@@ -83,18 +83,6 @@ p, li, input, button {
   height: 5%;
 }*/
 
-#chat {
-  /*margin: 1em;
-  margin-left: 1.8em;*/
-  height: 80%;
-  padding: 0em;
-  border: 1px solid #fff;
-  overflow: scroll;
-}
-.message-container {
-  overflow: scroll;
-}
-
 .nav-tabs .nav-link {
   color: #fff;
   background-color: #4A4A4A;
@@ -112,16 +100,28 @@ p, li, input, button {
   height: 95%;
 }
 
-.message-container {
+#chat {
+  /*margin: 1em;
+  margin-left: 1.8em;*/
+  height: 80%;
+  padding: 0em;
+  border: 1px solid #fff;
+  overflow: scroll;
+}
+#chat-container {
   height: 91%;
-  background-color: #F2F2F2;
+  overflow: scroll;
+  background-color: #4A4A4A;
   margin: 1em;
+}
+#messages-container {
+  padding: 0;
 }
 #messages {
   overflow: scroll;
-  margin-top: 1em;
   list-style-type: none;
-  padding-left: 0;
+  padding: 15px;
+  background-color: #f2f2f2;
 }
 #messages li {
   margin: .3em 0;
@@ -149,11 +149,10 @@ p, li, input, button {
 #users {
   padding-left: 0;
 }
-.users-container {
+#users-container {
   background-color: #4A4A4A;
-  border-left: 2px solid #fff;
 }
-.users-container li {
+#users-container li {
   color: #fff;
   list-style-type: none;
 }
