@@ -69,21 +69,21 @@ $(document).ready(function() {
 	// 	}
 	// });
 
-  $("#chat-text-box").emojioneArea({
-    events: {
-      keyup: function(editor, event) {
-      	// catches everything but enter
-        if (event.which == 13) {
-          alert("Enter key pressed");
-          $("#form").submit();
-          // event.preventDefault();
-          // return false;
-        } else {
-        	alert("Key pressed: " + event.which);
-        }
-      }
-    }
-  });
+  // $("#chat-text-box").emojioneArea({
+  //   events: {
+  //     keyup: function(editor, event) {
+  //     	// catches everything but enter
+  //       if (event.which == 13) {
+  //         alert("Enter key pressed");
+  //         $("#form").submit();
+  //         // event.preventDefault();
+  //         // return false;
+  //       } else {
+  //       	alert("Key pressed: " + event.which);
+  //       }
+  //     }
+  //   }
+  // });
 
 });
 
