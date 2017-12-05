@@ -131,9 +131,18 @@ socket.on('updateMessageList', function (messages) {
   var request = messages.forEach( function (message, index) {
     var formattedTime = moment(message.createdAt).format('MMM Do, h:mm a');
 
-    var li = $('<li></li>');
+    var li = $('<li class="list-group-item justify-content-between"></li>');
     //li.text(`${message.from}: ${formattedTime} ${message.text}`);
-    li.html(`${message.from}: ${formattedTime} ${message.text} <button class = 'upvote' value = ${message.mId}>Upvote</button><span id=${message.mId}>0</span>`);
+    li.html(`
+        <div>
+          <span class="from">${message.from}</span> <span class="timestamp">${formattedTime}</span></br>
+          ${message.text}
+        </div>
+        <div>
+          <button class='btn btn-outline-success upvote' value=${message.mId}><i class="fa fa-plus" aria-hidden="true"></i></button>
+          <span id=${message.mId} class="badge badge-default badge-pill">0</span>
+        </div>
+    `);
 
     $('#messages').append(li);
 
@@ -145,9 +154,18 @@ socket.on('newMessage', function (message) {
   var formattedTime = moment(message.createdAt).format('MMM Do, h:mm a');
   //get the array maxlength and add it to span
 
-  var li = $('<li></li>');
+  var li = $('<li class="list-group-item justify-content-between"></li>');
   //console.log(message.mId);
-  li.html(`${message.from}: ${formattedTime} ${message.text} <button class = 'upvote' value = ${message.mId}>Upvote</button><span>0</span>`);
+  li.html(`
+      <div>
+        <span class="from">${message.from}</span> <span class="timestamp">${formattedTime}</span></br>
+        ${message.text}
+      </div>
+      <div>
+        <button class='btn btn-outline-success upvote' value=${message.mId}><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <span id=${message.mId} class="badge badge-default badge-pill">0</span>
+      </div>
+  `);
   // li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
   $('#messages').append(li);

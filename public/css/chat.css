@@ -111,27 +111,40 @@ p, li, input, button {
 .tab-pane {
   height: 95%;
 }
+
 .message-container {
   height: 91%;
   background-color: #F2F2F2;
   margin: 1em;
 }
-
 #messages {
   overflow: scroll;
   margin-top: 1em;
+  list-style-type: none;
+  padding-left: 0;
+}
+#messages li {
+  margin: .3em 0;
 }
 
-/*#message-container {
-  border: 1px solid #fff;
-}*/
-
-#message-form {
-  margin: 1em;
-  width: 100%;
-  /*background-color: #F2F2F2;
-  border: 1px solid #fff;*/
+.from {
+  font-size: 0.75em;
+  font-weight: bold;
+  padding-right: .5em;
 }
+.timestamp {
+  font-size: 0.75em;
+  color: #a4a4a4;
+}
+
+.upvote {
+  padding: .2em .4em;
+  border: 0;
+}
+.fa-plus {
+
+}
+
 
 #users {
   padding-left: 0;
@@ -149,7 +162,14 @@ p, li, input, button {
   padding-right: .25em;
 }
 
+
 /* we should use flex box for this instead */
+#message-form {
+  margin: 1em;
+  width: 100%;
+  /*background-color: #F2F2F2;
+  border: 1px solid #fff;*/
+}
 #chat-text-box {
   width: 80%;
 }
