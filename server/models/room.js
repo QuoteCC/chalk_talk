@@ -114,24 +114,28 @@ RoomSchema.statics.getMessageByRoomId = function(mId, room_id, user_id){
     return p;
 
   });
-  /*var msg  = curRoom.messages.findOne({
-      'mId': mId});
-    return msg.upvotes.findOne({user_id})
-  }).then((user) => {
-    console.log("FoundUser:", user);
-    if(!user){
-      msg.upvotes.push(user_id);
-    }
-    else {
-      msg.upvotes.findOneandRemove(user_id);
-    }
-    console.log(msg.upvotes);
-    return new Promise ( resolve => resolve(msg.upvotes.length));
-  }).catch((e) => {
-    console.log("err", e);
-    return Promise.reject();
-  });*/
+
 };
+
+
+
+RoomSchema.statics.getQuestions = function (){
+  const Room = this;
+
+  var msgList = [];
+
+  return Room.find({}).then( (rooms) => {
+    rooms.forEach((room, index) => {
+      room.messages.some((msg) => {
+        msgList.push({
+          text: msg.text,
+          score: msg.upvotes.length});
+      });
+    });
+    return new Promise (resolve => resolve(msgList));
+  });
+
+}
 
 RoomSchema.statics.getRoomList = function (){
   const Room = this;

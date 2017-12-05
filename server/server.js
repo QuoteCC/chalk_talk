@@ -248,12 +248,6 @@ io.on('connection', (socket) => {
 			io.to(params.room_id).emit('updateUpvote', toRet);
 		});
 
-
-
-
-
-
-
 	});
 
 });
@@ -263,23 +257,35 @@ io.on('connection', (socket) => {
 
 //Daily Email
 //rn every
-var daily = schedule.scheduleJob('0 0 * * *', function() {
+var daily = schedule.scheduleJob('0 13 * * *', function() {
 	console.log("Sent out daily at midnight");
 	var mailOptions = {
 		to: "noreplychalktalk@gmail.com",
-		subject: "Test",
+		subject: "TREE",
 		text: "Test"
 	};
-	smtpTransport.sendMail(mailOptions, function(error, response) {
-		if(error){
-			console.log(error);
-			//res.end("error");
-		}else{
-			console.log("Message Sent");
-			//res.end("sent")
-		}
+	Room.getQuestions().then((msgList) => {
+		var fmt = "";
+		//mailOptions.text = msgList.stringify();
+		msgList.forEach((msg) => {
+			fmt += msg.text + "  Score:" + msg.score + "\n";
+		});
+		mailOptions.text = fmt;
+		smtpTransport.sendMail(mailOptions, function(error, response) {
+			if(error){
+				console.log(error);
+				//res.end("error");
+			}else{
+				console.log("Message Sent");
+				//res.end("sent")
+			}
 
+		});
+	}).catch((e) => {
+		console.log("Message failed because", e);
 	});
+
+
 
 });
 
