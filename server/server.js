@@ -237,14 +237,24 @@ io.on('connection', (socket) => {
 
   });
 
-	// socket.on('upvote',  function(params) {
-	// 	// console.log("data being sent " , params.room_id)
-	// 	var msg = Room.getMessageByRoomId(params.msgId, params.room_id,params.user_id);
-  //
-  //
-  //
-  //
-	// });
+	 socket.on('upvote',  function(params) {
+	 	// console.log("data being sent " , params.room_id)
+		Room.getMessageByRoomId(params.msgId, params.room_id, params.user_id).then(function(resolve, reject) {
+			// console.log("msg length", resolve);
+			var toRet = {
+				len: resolve,
+				mId: params.msgId
+			}
+			io.to(params.room_id).emit('updateUpvote', toRet);
+		});
+
+
+
+
+
+
+
+	});
 
 });
 
