@@ -111,6 +111,7 @@ socket.on('disconnect',function () {
 socket.on('updateUpvote', function (params) {
   var currSpan = $('#'+params.mId);
   currSpan.html(params.len);
+  currSpan.parent().find('.upvote').toggleClass('upvoted');
 });
 
 socket.on('updateUserList', function (users) {
@@ -128,17 +129,36 @@ socket.on('updateMessageList', function (messages) {
     var formattedTime = moment(message.createdAt).format('MMM Do, h:mm a');
 
     var li = $('<li class="list-group-item justify-content-between"></li>');
-    //li.text(`${message.from}: ${formattedTime} ${message.text}`);
-    li.html(`
-        <div>
-          <span class="from">${message.from}</span> <span class="timestamp">${formattedTime}</span></br>
-          ${message.text}
-        </div>
-        <div>
-          <button class='btn btn-outline-success upvote' value=${message.mId}><i class="fa fa-plus" aria-hidden="true"></i></button>
-          <span id=${message.mId} class="badge badge-default badge-pill">0</span>
-        </div>
-    `);
+
+    // li.html(`
+    //     <div>
+    //       <span class="from">${message.from}</span> <span class="timestamp">${formattedTime}</span></br>
+    //       ${message.text}
+    //     </div>
+    //     <div>
+    //       <button class='btn btn-outline-success upvote' value=${message.mId}><i class="fa fa-plus" aria-hidden="true"></i></button>
+    //       <span id=${message.mId} class="badge badge-default badge-pill">0</span>
+    //     </div>
+    // `);
+
+    if (message.from != "Chalky") {
+      li.html(`
+          <div>
+            <span class="from">${message.from}</span> <span class="timestamp">${formattedTime}</span></br>
+            ${message.text}
+          </div>
+          <div>
+            <button class='btn btn-outline-success upvote' value=${message.mId}><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <span id=${message.mId} class="badge badge-default badge-pill">0</span>
+          </div>
+      `);
+    } else if (message.from == "Chalky") {
+      li.html(`
+          <div class="chalky">
+            <span class="timestamp">${formattedTime}: ${message.text}</span>
+          </div>
+      `);
+    }
 
     $('#messages').append(li);
     //scroll to the bottom at the beginning of loading
@@ -154,17 +174,36 @@ socket.on('newMessage', function (message) {
 
   var li = $('<li class="list-group-item justify-content-between"></li>');
   //console.log(message.mId);
-  li.html(`
-      <div>
-        <span class="from">${message.from}</span> <span class="timestamp">${formattedTime}</span></br>
-        ${message.text}
-      </div>
-      <div>
-        <button class='btn btn-outline-success upvote' value=${message.mId}><i class="fa fa-plus" aria-hidden="true"></i></button>
-        <span id=${message.mId} class="badge badge-default badge-pill">0</span>
-      </div>
-  `);
+  // li.html(`
+  //     <div>
+  //       <span class="from">${message.from}</span> <span class="timestamp">${formattedTime}</span></br>
+  //       ${message.text}
+  //     </div>
+  //     <div>
+  //       <button class='btn btn-outline-success upvote' value=${message.mId}><i class="fa fa-plus" aria-hidden="true"></i></button>
+  //       <span id=${message.mId} class="badge badge-default badge-pill">0</span>
+  //     </div>
+  // `);
   // li.text(`${message.from}: ${formattedTime} ${message.text}`);
+
+  if (message.from != "Chalky") {
+    li.html(`
+        <div>
+          <span class="from">${message.from}</span> <span class="timestamp">${formattedTime}</span></br>
+          ${message.text}
+        </div>
+        <div>
+          <button class='btn btn-outline-success upvote' value=${message.mId}><i class="fa fa-plus" aria-hidden="true"></i></button>
+          <span id=${message.mId} class="badge badge-default badge-pill">0</span>
+        </div>
+    `);
+  } else if (message.from == "Chalky") {
+    li.html(`
+        <div class="chalky">
+          <span class="timestamp">${formattedTime}: ${message.text}</span>
+        </div>
+    `);
+  }
 
   $('#messages').append(li);
   //scroll to the bottom whena  new message is sent
