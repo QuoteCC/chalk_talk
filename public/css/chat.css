@@ -135,13 +135,18 @@ p, li, input, button {
   font-size: 0.75em;
   color: #a4a4a4;
 }
+.chalky {
+  padding-left: 10px;
+}
 
 .upvote {
   padding: .2em .4em;
   border: 0;
 }
-.fa-plus {
-
+.upvoted {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
 }
 
 
@@ -150,6 +155,7 @@ p, li, input, button {
 }
 #users-container {
   background-color: #4A4A4A;
+  overflow: scroll;
 }
 #users-container li {
   color: #fff;
