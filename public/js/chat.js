@@ -118,13 +118,12 @@ socket.on('disconnect',function () {
 });
 
 socket.on('updateUserList', function (users) {
-  var ol = $('<ol></ol>');
-
   users.forEach( function (user) {
-    ol.append($('<li></li>').text(user.name));
+    let li = $('<li></li>');
+    li.html(`<i class="fa fa-dot-circle-o"></i> ${user.name}`);
+    $('#users').append(li);
   });
 
-  $('#users').html(ol);
 });
 
 socket.on('updateMessageList', function (messages) {

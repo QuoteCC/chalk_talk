@@ -31,8 +31,13 @@
           <!-- Tab panes -->
           <div id="chat" class="tab-content">
             <div class="tab-pane active" role="tabpanel">
-              <div class="message-container">
-                <ul id="messages"></ul>
+              <div class="row message-container">
+                <div class="col-10">
+                  <ul id="messages"></ul>
+                </div>
+                <div class="col-2 users-container">
+                  <ol id="users"></ol>
+                </div>
               </div>
               <form id="message-form">
                 <input id="chat-text-box" name="message" type="text" placeholder="type message here" autofocus="true" autocomplete="false">

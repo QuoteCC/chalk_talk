@@ -133,6 +133,22 @@ p, li, input, button {
   border: 1px solid #fff;*/
 }
 
+#users {
+  padding-left: 0;
+}
+.users-container {
+  background-color: #4A4A4A;
+  border-left: 2px solid #fff;
+}
+.users-container li {
+  color: #fff;
+  list-style-type: none;
+}
+.fa-dot-circle-o {
+  color: #84E73B;
+  padding-right: .25em;
+}
+
 /* we should use flex box for this instead */
 #chat-text-box {
   width: 80%;
