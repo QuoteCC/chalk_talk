@@ -69,8 +69,6 @@ socket.on('connect', function () {
       //alert(err);
       window.location.href = '/';
     }
-
-
   });
 });
 
@@ -81,6 +79,7 @@ $("#messages").on('click', '.upvote' , function(){
     var user_id = localStorage.getItem('user_id');
     var currSpan = $('#'+this.value);
     var msgId = this.value;
+    currSpan.parent().find('.upvote').toggleClass('upvoted');
 
      //send votes to the server
      var params = {
@@ -98,7 +97,6 @@ $("#messages").on('click', '.upvote' , function(){
 
   });
 
-
 socket.on('disconnect',function () {
   console.log('Disconnected from the server');
     socket.emit('leaveRoom', {
@@ -111,7 +109,6 @@ socket.on('disconnect',function () {
 socket.on('updateUpvote', function (params) {
   var currSpan = $('#'+params.mId);
   currSpan.html(params.len);
-  currSpan.parent().find('.upvote').toggleClass('upvoted');
 });
 
 socket.on('updateUserList', function (users) {
