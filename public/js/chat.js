@@ -141,6 +141,8 @@ socket.on('updateMessageList', function (messages) {
     `);
 
     $('#messages').append(li);
+    //scroll to the bottom at the beginning of loading
+    $('#messages-container').scrollTop($('#messages-container')[0].scrollHeight);
 
   });
 });
@@ -165,6 +167,8 @@ socket.on('newMessage', function (message) {
   // li.text(`${message.from}: ${formattedTime} ${message.text}`);
 
   $('#messages').append(li);
+  //scroll to the bottom whena  new message is sent
+  $('#messages-container').scrollTop($('#messages-container')[0].scrollHeight);
 
 });
 
